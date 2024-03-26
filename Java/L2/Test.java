@@ -1,38 +1,33 @@
-public class Test {
+public class Test{
     public static void main(String[] args) 
     {
-        LiczbyPierwsze liczby=null;
-        if(args.length<=1){
-            System.out.println("Brak argumentow");
+        int n;
+        try{
+        if(args.length <= 1){
+                throw new Exception("Za malo argumentow");
+            }
+        if(Integer.parseInt(args[0])<1){
+            throw new Exception("Za mala wartosc");
+            }
+            n = Integer.parseInt(args[0]);
+        }catch(Exception e)
+        {
+            System.out.println(args[0]+ " "+ e.getMessage());
             return;
         }
-
-        try {
-            int n = Integer.parseInt(args[0]);
-            if(n<0){
-                throw new NumberFormatException("Liczba ujemna");
-            }
-            liczby = new LiczbyPierwsze();
-            liczby.Konstruktor(n);
-            }catch(NumberFormatException ex)
-            {
-                System.out.println(ex.getMessage());
-            }
-
+        
+        WierszTrojkataPascala w = new WierszTrojkataPascala(n);
         for(int i=1;i<args.length;i++){
             try {
-                int n = Integer.parseInt(args[i]);
-                if(n<0){
-                    throw new NumberFormatException("Liczba ujemna");
+                int m = Integer.parseInt(args[i]);
+                if(m<0){
+                    throw new Exception("Liczba ujemna");
                 }
-                if(n>liczby.pierwsze.length-1){
-                    throw new NumberFormatException("jest poza zakresem tablicy");
+                if(m>n){
+                    throw new Exception("Liczba wieksza od n");
                 }
-                
-                
-                    System.out.println(args[i] + " " + liczby.liczba(n));
-                
-            }catch (NumberFormatException e) 
+                System.out.println(args[i]+" | "+w.liczba(m));
+            }catch (Exception e) 
             {
                 System.out.println(args[i]+" "+e.getMessage());
             }
