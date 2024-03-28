@@ -1,9 +1,12 @@
-import java.io.Console;
-
-abstract class figura{
+interface metody {
     public abstract double obwod();
     public abstract double pole();
     public abstract void wypisz();
+    
+}
+
+abstract class figura implements metody{
+    
 }
 abstract class czworokat extends figura{
     public double bok1;
