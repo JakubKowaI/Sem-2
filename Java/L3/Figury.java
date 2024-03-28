@@ -149,6 +149,14 @@ public class Figury{
     public static void main(String[] args){
         try {
             figura f;
+
+            if(args.length<2){
+                throw new Exception("Za malo argumentow");
+            }
+            if(args.length>6){
+                throw new Exception("Za duzo argumentow");
+            }
+
             switch (args[0].charAt(0)) {
                 case 'o':
                     f = new kolo(Double.parseDouble(args[1]));
@@ -161,10 +169,20 @@ public class Figury{
                     break;  
                 case 'c':
                 if(args.length==6){
-                    f= new prostokat(Double.parseDouble(args[1]),Double.parseDouble(args[2]),Double.parseDouble(args[3]),Double.parseDouble(args[4]),Double.parseDouble(args[5]));
+                    if(Double.parseDouble(args[5])==90d)
+                    {
+                        if(args[1]==args[2]&&args[2]==args[3]&&args[3]==args[4]){
+                            f= new kwadrat(Double.parseDouble(args[1]),Double.parseDouble(args[2]),Double.parseDouble(args[3]),Double.parseDouble(args[4]),Double.parseDouble(args[5]));
+                        }
+                        else{
+                            f= new prostokat(Double.parseDouble(args[1]),Double.parseDouble(args[2]),Double.parseDouble(args[3]),Double.parseDouble(args[4]),Double.parseDouble(args[5]));
+                        }
+                    }else{
+                    f= new romb(Double.parseDouble(args[1]),Double.parseDouble(args[2]),Double.parseDouble(args[3]),Double.parseDouble(args[4]),Double.parseDouble(args[5]));
                 }
+            }
                 else{
-                    throw new Exception("Za malo argumentow");
+                    throw new Exception("Zla ilosc argumentow");
                 }
                     break;
             
