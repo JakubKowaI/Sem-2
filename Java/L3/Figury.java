@@ -1,3 +1,4 @@
+//bla bla
 interface metody {
     public abstract double obwod();
     public abstract double pole();
@@ -6,6 +7,7 @@ interface metody {
 }
 
 abstract class figura implements metody{
+   
     
 }
 abstract class czworokat extends figura{
