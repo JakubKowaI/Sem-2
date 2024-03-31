@@ -1,81 +1,87 @@
 #include <iostream>
+#include <cmath>
+#include <string>
+
+using namespace std;
 
 class figura {
+    public:
    virtual double obwod();
     virtual double pole();
     virtual void wypisz();
     
-}
-class czworokat : figura{
+};
+class czworokat : public figura{
     public:
     double bok1;
     double bok2;
     double bok3;
     double bok4;
     double kat;
-}
+};
 
-class kolo : figura{
+class kolo : public figura{
     public:
     double promien;
 kolo(double r){
     promien =r;
 }
 double pole(){
-    return (Math.PI*promien*promien);
+    return (M_PI*promien*promien);
 }
 double obwod(){
-    return 2*Math.PI*promien;    
+    return 2*M_PI*promien;    
 }
 void wypisz(){    
     cout<<"Pole: "<<pole()<<endl;
     cout<<"Obwod: "<<obwod()<<endl;
     cout<<"Kolo\n";
 }
-}
+};
 
-class pieciokat : figura{
+class pieciokat : public figura{
     public:
 double bok;
 pieciokat(double b){
     bok = b;
 }
 double pole(){
-    return (5*bok*bok)/(4*Math.tan(Math.PI/5));    
+    return ((sqrt(25+(10*sqrt(5))))/4)*bok*bok;    
 }
 double obwod(){
     return 5*bok;    
 }
 
 void wypisz(){    
-    System.out.println("Pole: "+pole());
-    System.out.println("Obwod: "+obwod());
-    System.out.println("Pieciokat");
+    cout<<"Pole: "<<pole()<<endl;
+    cout<<"Obwod: "<<obwod()<<endl;
+    cout<<"Pieciokat\n";
 }
-
-}
-class szeciokat extends figura {
-public double bok;
+};
+class szeciokat : public figura {
+    public:
+double bok;
 szeciokat(double b){
     bok = b;
 }
 
-public double pole(){
-    return (3*Math.sqrt(3)*bok*bok)/2;    
+double pole(){
+    return (3*sqrt(3)*bok*bok)/2;    
 }
 
-public double obwod(){
+double obwod(){
     return 6*bok;    
 }
 
-public void wypisz(){    
-    System.out.println("Pole: "+pole());
-    System.out.println("Obwod: "+obwod());
-    System.out.println("Szesciokat");
+void wypisz(){    
+    cout<<"Pole: "<<pole()<<endl;
+    cout<<"Obwod: "<<obwod()<<endl;
+    cout<<"Szesciokat\n";
 }
-}
+};
 
-class prostokat extends czworokat{
+class prostokat : public czworokat{
+    public:
 prostokat(double b1,double b2,double b3, double b4,double k){
     bok1 = b1;
     bok2 = b2;
@@ -83,7 +89,7 @@ prostokat(double b1,double b2,double b3, double b4,double k){
     bok4 = b4;
     kat = k;
 }
-public double pole(){
+double pole(){
     if(bok1!=bok2){
     return bok1*bok2;    
     }
@@ -91,17 +97,17 @@ public double pole(){
         return bok1*bok3;
     }    
 }
-public double obwod(){
+double obwod(){
     return bok1+bok2+bok3+bok4;    
 }
-public void wypisz(){    
-    System.out.println("Pole: "+pole());
-    System.out.println("Obwod: "+obwod());
-    System.out.println("Prostokat");
+void wypisz(){    
+    cout<<"Pole: "<<pole()<<endl;
+    cout<<"Obwod: "<<obwod()<<endl;
+    cout<<"Prostokat\n";
 }
-    
-}
-class kwadrat extends czworokat{
+};
+class kwadrat : public czworokat{
+    public:
     kwadrat(double b1,double b2,double b3, double b4,double k){
         bok1 = b1;
         bok2 = b2;
@@ -109,20 +115,21 @@ class kwadrat extends czworokat{
         bok4 = b4;
         kat = k;
     }
-public double pole(){
+double pole(){
     return bok1*bok1;    
 }
-public double obwod(){
+double obwod(){
     return 4*bok1;    
 }
-public void wypisz(){    
-    System.out.println("Pole: "+pole());
-    System.out.println("Obwod: "+obwod());
-    System.out.println("Kwadrat");
-}
-    
-}
-class romb extends czworokat{
+void wypisz(){    
+    cout<<"Pole: "<<pole()<<endl;
+    cout<<"Obwod: "<<obwod()<<endl;
+    cout<<"Kwadrat\n";
+}   
+};
+
+class romb : public czworokat{
+    public:
     romb(double b1,double b2,double b3, double b4,double k){
         bok1 = b1;
         bok2 = b2;
@@ -131,23 +138,71 @@ class romb extends czworokat{
         kat = k;
     }
 
-public double pole(){
-    return bok1*bok1*Math.sin(kat);
+double pole(){
+    return bok1*bok1*sin(kat);
 }
 
-public double obwod(){
+double obwod(){
     return 4*bok1;    
 }
 
-public void wypisz(){    
-    System.out.println("Pole: "+pole());
-    System.out.println("Obwod: "+obwod());
-    System.out.println("Romb");
+void wypisz(){    
+    cout<<"Pole: "<<pole()<<endl;
+    cout<<"Obwod: "<<obwod()<<endl;
+    cout<<"Romb\n";
 }
-}
+};
 
-int man(int argc, char* argv[])
+int main(int argc,char* args[])
 {
-    cout << "Hello, World!" << endl;
-    return 0;
+    try {
+            if(argc<3){
+                throw new string("Za malo argumentow");
+            }
+            if(argc>7){
+                throw new string("Za duzo argumentow");
+            }
+        figura *f=nullptr;
+        //strcpy(s,args[1]);
+            switch(args[1]) {
+                case "o":
+                f = new kolo(stod(args[2]));
+                    break;
+                case "p":
+                f= new pieciokat(stod(args[2]));
+                    break;
+                case "s":
+                f= new szeciokat(stod(args[2]));
+                    break;  
+                case "c":
+                if(argc==7){
+                    if(stod(args[6])==90)
+                    {
+                        if(args[2]==args[3]&&args[3]==args[4]&&args[4]==args[5]){
+                            f= new kwadrat(stod(args[2]),stod(args[3]),stod(args[4]),stod(args[5]),stod(args[6]));
+                        }
+                        else{
+                            f= new prostokat(stod(args[2]),stod(args[3]),stod(args[4]),stod(args[5]),stod(args[6]));
+                        }
+                    }else{
+                    f= new romb(stod(args[2]),stod(args[3]),stod(args[4]),stod(args[5]),stod(args[6]));
+                    }
+                    }
+                else{
+                    throw new string("Zla ilosc argumentow");
+                }
+                    break;
+                default:
+                throw new string("Zle argumenty");
+                break;
+            }
+            f->wypisz();
+        } catch (string e) {
+            cout<<e<<endl;
+        }catch(invalid_argument){
+            cout<<"Zly typ argumentu"<<endl;
+        }catch(...){
+            cout<<"Blad"<<endl;
+        }
+        return 0;
 }
