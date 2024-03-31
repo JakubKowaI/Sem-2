@@ -16,8 +16,6 @@ abstract class czworokat extends figura{
     public double bok3;
     public double bok4;
     public double kat;
-    
-
 }
 
 class kolo extends figura{
@@ -44,7 +42,7 @@ pieciokat(double b){
     bok = b;
 }
 public double pole(){
-    return (5*bok*bok)/(4*Math.tan(Math.PI/5));    
+    return ((Math.sqrt(25+(10*Math.sqrt(5))))/4)*bok*bok;    
 }
 public double obwod(){
     return 5*bok;    
@@ -64,7 +62,7 @@ szeciokat(double b){
 }
 
 public double pole(){
-    return (3*Math.sqrt(3)*bok*bok)/2;    
+    return ((3*Math.sqrt(3)*bok*bok)/2);    
 }
 
 public double obwod(){
