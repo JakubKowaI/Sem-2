@@ -163,31 +163,60 @@ int main(int argc,char* args[])
                 throw new string("Za duzo argumentow");
             }
         figura *f=nullptr;
-        //strcpy(s,args[1]);
-            switch(args[1]) {
-                case "o":
+        /*if(args[1]=="o"){
+            f = new kolo(stod(args[2]));
+        }
+        else if(args[1]=="p"){
+            f= new pieciokat(stod(args[2]));
+        }
+        else if(args[1]=="s"){
+            f= new szeciokat(stod(args[2]));
+        }
+        else if(args[1]=="c"){
+            if(argc==7){
+                if(stod(args[6])==90)
+                {
+                    if(args[2]==args[3]&&args[3]==args[4]&&args[4]==args[5]){
+                        f= new kwadrat(stod(args[2]),stod(args[3]),stod(args[4]),stod(args[5]),stod(args[6]));
+                    }
+                    else{
+                        f= new prostokat(stod(args[2]),stod(args[3]),stod(args[4]),stod(args[5]),stod(args[6]));
+                    }
+                }else{
+                    f= new romb(stod(args[2]),stod(args[3]),stod(args[4]),stod(args[5]),stod(args[6]));
+                }
+            }
+            else{
+                throw new string("Zla ilosc argumentow");
+            }
+        }
+        else{
+            throw new string("Zle argumenty");
+        }*///if(args[1].size()!=1)return 0;
+            switch(*args[1]) {
+                case 'o':
                 f = new kolo(stod(args[2]));
                     break;
-                case "p":
+                case 'p':
                 f= new pieciokat(stod(args[2]));
                     break;
-                case "s":
+                case 's':
                 f= new szeciokat(stod(args[2]));
                     break;  
-                case "c":
-                if(argc==7){
-                    if(stod(args[6])==90)
-                    {
-                        if(args[2]==args[3]&&args[3]==args[4]&&args[4]==args[5]){
-                            f= new kwadrat(stod(args[2]),stod(args[3]),stod(args[4]),stod(args[5]),stod(args[6]));
+                case 'c':
+                if (argc == 7) {
+                    if (stod(args[6]) == 90) {
+                        if (args[2] == args[3] && args[3] == args[4] && args[4] == args[5]) {
+                            f = new kwadrat(stod(args[2]), stod(args[3]), stod(args[4]), stod(args[5]), stod(args[6]));
                         }
-                        else{
-                            f= new prostokat(stod(args[2]),stod(args[3]),stod(args[4]),stod(args[5]),stod(args[6]));
+                        else {
+                            f = new prostokat(stod(args[2]), stod(args[3]), stod(args[4]), stod(args[5]), stod(args[6]));
                         }
-                    }else{
-                    f= new romb(stod(args[2]),stod(args[3]),stod(args[4]),stod(args[5]),stod(args[6]));
                     }
+                    else {
+                        f = new romb(stod(args[2]), stod(args[3]), stod(args[4]), stod(args[5]), stod(args[6]));
                     }
+                }
                 else{
                     throw new string("Zla ilosc argumentow");
                 }
