@@ -193,7 +193,7 @@ public class Figury{
             
                 default:
                 throw new Exception("Zle argumenty");
-                    //break;
+                    
 
 
                     
