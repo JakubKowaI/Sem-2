@@ -162,19 +162,29 @@ public class Figury{
 
             switch (args[0].charAt(0)) {
                 case 'o':
+                    if(Double.parseDouble(args[1])<=0){
+                        throw new Exception("Zbyt mala liczba");
+                    }
                     f = new kolo(Double.parseDouble(args[1]));
                     break;
                 case 'p':
+                if(Double.parseDouble(args[1])<=0){
+                    throw new Exception("Zbyt mala liczba");
+                }
                 f= new pieciokat(Double.parseDouble(args[1]));
                     break;
                 case 's':
+                if(Double.parseDouble(args[1])<=0){
+                    throw new Exception("Zbyt mala liczba");
+                }
                 f= new szeciokat(Double.parseDouble(args[1]));
                     break;  
                 case 'c':
                 if(args.length==6){
-                    if(Double.parseDouble(args[5])==90d)
+                    if((Double.parseDouble(args[1])<=0d)||(Double.parseDouble(args[2])<=0d)||(Double.parseDouble(args[3])<=0d)||(Double.parseDouble(args[4])<=0d)){throw new Exception("Zbyt mala liczba");}
+                    else if(Double.parseDouble(args[5])==90d)
                     {
-                        if(args[1]==args[2]&&args[2]==args[3]&&args[3]==args[4]){
+                        if(Double.parseDouble(args[1])==Double.parseDouble(args[2])&&Double.parseDouble(args[2])==Double.parseDouble(args[3])&&Double.parseDouble(args[3])==Double.parseDouble(args[4])){
                             f= new kwadrat(Double.parseDouble(args[1]),Double.parseDouble(args[2]),Double.parseDouble(args[3]),Double.parseDouble(args[4]),Double.parseDouble(args[5]));
                         }
                         else{
