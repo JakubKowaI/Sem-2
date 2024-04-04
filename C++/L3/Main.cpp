@@ -6,9 +6,9 @@ using namespace std;
 
 class figura {
     public:
-   virtual double obwod();
-    virtual double pole();
-    virtual void wypisz();
+   virtual double obwod()=0;
+    virtual double pole()=0;
+    virtual void wypisz()=0;
     
 };
 class czworokat : public figura{
@@ -152,6 +152,22 @@ void wypisz(){
     cout<<"Romb\n";
 }
 };
+/*
+enum stringi{
+            eo = 'o',
+            ep = 'p',
+            es = 's',
+            ec = 'c',
+            test = 0,
+        };
+
+    stringi czy(string const& s){
+            if(s=="o")return eo;
+            if(s=="p")return ep;
+            if(s=="s")return es;
+            if(s=="c")return ec;
+            return test;
+        }*/
 
 int main(int argc,char* args[])
 {
@@ -162,71 +178,47 @@ int main(int argc,char* args[])
             if(argc>7){
                 throw new string("Za duzo argumentow");
             }
-        figura *f=nullptr;
-        /*if(args[1]=="o"){
-            f = new kolo(stod(args[2]));
-        }
-        else if(args[1]=="p"){
-            f= new pieciokat(stod(args[2]));
-        }
-        else if(args[1]=="s"){
-            f= new szeciokat(stod(args[2]));
-        }
-        else if(args[1]=="c"){
-            if(argc==7){
-                if(stod(args[6])==90)
-                {
-                    if(args[2]==args[3]&&args[3]==args[4]&&args[4]==args[5]){
-                        f= new kwadrat(stod(args[2]),stod(args[3]),stod(args[4]),stod(args[5]),stod(args[6]));
-                    }
-                    else{
-                        f= new prostokat(stod(args[2]),stod(args[3]),stod(args[4]),stod(args[5]),stod(args[6]));
-                    }
-                }else{
-                    f= new romb(stod(args[2]),stod(args[3]),stod(args[4]),stod(args[5]),stod(args[6]));
-                }
+        if(args[1][0]=='o'){
+            if(stod(args[2])<=0){
+                throw new string("Promien nie moze byc ujemny lub rowny 0");
             }
-            else{
-                throw new string("Zla ilosc argumentow");
+            figura *f = new kolo(stod(args[2]));f->wypisz();}
+        else if(args[1][0]=='p'){
+            if(stod(args[2])<=0){
+                throw new string("Bok nie moze byc ujemny lub rowny 0");
             }
-        }
-        else{
-            throw new string("Zle argumenty");
-        }*///if(args[1].size()!=1)return 0;
-            switch(*args[1]) {
-                case 'o':
-                f = new kolo(stod(args[2]));
-                    break;
-                case 'p':
-                f= new pieciokat(stod(args[2]));
-                    break;
-                case 's':
-                f= new szeciokat(stod(args[2]));
-                    break;  
-                case 'c':
-                if (argc == 7) {
-                    if (stod(args[6]) == 90) {
+            figura *f = new pieciokat(stod(args[2]));f->wypisz();}
+        else if(args[1][0]=='s'){
+            if(stod(args[2])<=0){
+                throw new string("Bok nie moze byc ujemny lub rowny 0");
+            }
+            figura *f = new szeciokat(stod(args[2]));f->wypisz();}
+        else if(args[1][0]=='c'){ 
+            if(stod(args[2])<=0.0 || stod(args[3])<=0.0 || stod(args[4])<=0.0 || stod(args[5])<=0.0)throw new string("Bok nie moze byc ujemny lub rowny 0");
+            if(stod(args[6])<=0)throw new string("Kat nie moze byc ujemny lub rowny 0");
+                    if (stod(args[6]) == 90.0) {
                         if (args[2] == args[3] && args[3] == args[4] && args[4] == args[5]) {
-                            f = new kwadrat(stod(args[2]), stod(args[3]), stod(args[4]), stod(args[5]), stod(args[6]));
+                            figura *f = new kwadrat(stod(args[2]), stod(args[3]), stod(args[4]), stod(args[5]), stod(args[6]));
+                            f->wypisz();
                         }
                         else {
-                            f = new prostokat(stod(args[2]), stod(args[3]), stod(args[4]), stod(args[5]), stod(args[6]));
+                            figura *f = new prostokat(stod(args[2]), stod(args[3]), stod(args[4]), stod(args[5]), stod(args[6]));
+                            f->wypisz();
                         }
                     }
                     else {
-                        f = new romb(stod(args[2]), stod(args[3]), stod(args[4]), stod(args[5]), stod(args[6]));
+                        figura *f = new romb(stod(args[2]), stod(args[3]), stod(args[4]), stod(args[5]), stod(args[6]));
+                        f->wypisz();
                     }
-                }
-                else{
+                
+                }else{
                     throw new string("Zla ilosc argumentow");
                 }
-                    break;
-                default:
-                throw new string("Zle argumenty");
-                break;
-            }
-            f->wypisz();
-        } catch (string e) {
+
+        
+        
+            
+         }catch (string e) {
             cout<<e<<endl;
         }catch(invalid_argument){
             cout<<"Zly typ argumentu"<<endl;
