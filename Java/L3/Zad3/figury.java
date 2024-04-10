@@ -1,5 +1,3 @@
-
-
 interface MetodyPoj {
     public double ObliczPole(double a);
     public double ObliczObwod(double a);
@@ -12,8 +10,7 @@ interface MetodyPoj {
         public String PodajNazwe();    
         }
 
-public class figury {
-    
+public class figury {    
     
 public enum Pojedyncze implements MetodyPoj{
             KOLO{
@@ -59,13 +56,10 @@ public enum Pojedyncze implements MetodyPoj{
                 public String PodajNazwe(){
                     return "Kwadrat";
                 }
-            };
+            };            
+}
 
-            
-            
-        }
-
-        public enum Wielokrotne implements MetodyWiel{
+public enum Wielokrotne implements MetodyWiel{
             PROSTOKAT{
                 public double ObliczPole(double bok1,double bok2){
                     return bok1*bok2;
@@ -87,16 +81,14 @@ public enum Pojedyncze implements MetodyPoj{
                 public String PodajNazwe(){
                     return "Romb";
                 }
-            },
-            
-        }
-    
-    public static void main(String args[]){
+            },            
+}    
+public static void main(String args[]){
 
 try{
-if(args.length<2)throw new Exception("Za malo argumentow");
-if(args.length>6)throw new Exception("Za duzo argumentow");
-if(Double.parseDouble(args[1])<=0d)throw new Exception("Zbyt mala liczba");
+    if(args.length<2)throw new Exception("Za malo argumentow");
+    if(args.length>6)throw new Exception("Za duzo argumentow");
+    if(Double.parseDouble(args[1])<=0d)throw new Exception("Zbyt mala liczba");
 
         switch (args[0]) {
             case "o":
@@ -164,14 +156,12 @@ if(Double.parseDouble(args[1])<=0d)throw new Exception("Zbyt mala liczba");
                      }
                         break;
             default:
-            throw new Exception("Niepoprawny typ figury");
-                
-        }
-    
+            throw new Exception("Niepoprawny typ figury");                
+        }    
     }catch(NumberFormatException e){
         System.out.println("Zly format liczby");
     }catch(Exception e){
             System.out.println(e.getMessage());
-}
+    }
 }
 }
