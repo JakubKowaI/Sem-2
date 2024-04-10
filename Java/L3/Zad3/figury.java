@@ -96,6 +96,7 @@ public enum Pojedyncze implements MetodyPoj{
 try{
 if(args.length<2)throw new Exception("Za malo argumentow");
 if(args.length>6)throw new Exception("Za duzo argumentow");
+if(Double.parseDouble(args[1])<=0d)throw new Exception("Zbyt mala liczba");
 
         switch (args[0]) {
             case "o":
@@ -117,28 +118,45 @@ if(args.length>6)throw new Exception("Za duzo argumentow");
                 System.out.println(szesciokat.PodajNazwe());
                     break;
             case "c":
-                     if(args.length==6){   
-                        if((Double.parseDouble(args[1])<=0d)||(Double.parseDouble(args[2])<=0d)||(Double.parseDouble(args[3])<=0d)||(Double.parseDouble(args[4])<=0d)){throw new Exception("Zbyt mala liczba");}
-                        else if(Double.parseDouble(args[5])==90d)
+                     if(args.length==6){  
+                        double bok1 = Double.parseDouble(args[1]);
+                        double bok2 = Double.parseDouble(args[2]);
+                        double bok3 = Double.parseDouble(args[3]);
+                        double bok4 = Double.parseDouble(args[4]);
+                        double kat = Double.parseDouble(args[5]); 
+                        if((bok1<=0d)||(bok2<=0d)||(bok3<=0d)||(bok4<=0d)){throw new Exception("Zbyt mala liczba");}
+                        else if(kat==90d)
                         {
-                            if(Double.parseDouble(args[1])==Double.parseDouble(args[2])&&Double.parseDouble(args[2])==Double.parseDouble(args[3])&&Double.parseDouble(args[3])==Double.parseDouble(args[4])){
+                            if(bok1==bok2&&bok2==bok3&&bok3==bok4){
                                 Pojedyncze kwadrat = Pojedyncze.KWADRAT;
-                                System.out.println(kwadrat.ObliczPole(Double.parseDouble(args[1])));
-                                System.out.println(kwadrat.ObliczObwod(Double.parseDouble(args[1])));
+                                System.out.println(kwadrat.ObliczPole(bok1));
+                                System.out.println(kwadrat.ObliczObwod(bok1));
                                 System.out.println(kwadrat.PodajNazwe());
                             }
                             else{
-                                if(Double.parseDouble(args[1])!=Double.parseDouble(args[3])||Double.parseDouble(args[2])!=Double.parseDouble(args[4]))throw new Exception("To nie jest prostokat");
-                                Wielokrotne prostokat = Wielokrotne.PROSTOKAT;
-                                System.out.println(prostokat.ObliczPole(Double.parseDouble(args[1]),Double.parseDouble(args[3])));
-                                System.out.println(prostokat.ObliczObwod(Double.parseDouble(args[1]),Double.parseDouble(args[3])));
-                                System.out.println(prostokat.PodajNazwe());
+                                if(bok1==bok3&&bok2==bok4){
+                                    Wielokrotne prostokat = Wielokrotne.PROSTOKAT;
+                                    System.out.println(prostokat.ObliczPole(bok1,bok2));
+                                    System.out.println(prostokat.ObliczObwod(bok1,bok2));
+                                    System.out.println(prostokat.PodajNazwe());
+                                }
+                                else if(bok1==bok2&&bok3==bok4){
+                                    Wielokrotne prostokat = Wielokrotne.PROSTOKAT;
+                                    System.out.println(prostokat.ObliczPole(bok1,bok3));
+                                    System.out.println(prostokat.ObliczObwod(bok1,bok3));
+                                    System.out.println(prostokat.PodajNazwe());
+                                }else if(bok1 == bok4 && bok2 == bok3){
+                                    Wielokrotne prostokat = Wielokrotne.PROSTOKAT;
+                                    System.out.println(prostokat.ObliczPole(bok1,bok2));
+                                    System.out.println(prostokat.ObliczObwod(bok1,bok2));
+                                    System.out.println(prostokat.PodajNazwe());
+                                }else throw new Exception("Niepoprawne wymiary prostokata");
                             }
                         }
                         else{
                             Wielokrotne romb = Wielokrotne.ROMB;
-                            System.out.println(romb.ObliczPole(Double.parseDouble(args[1]),Double.parseDouble(args[5])));
-                            System.out.println(romb.ObliczObwod(Double.parseDouble(args[1]),Double.parseDouble(args[5])));
+                            System.out.println(romb.ObliczPole(bok1,kat));
+                            System.out.println(romb.ObliczObwod(bok1,kat));
                             System.out.println(romb.PodajNazwe());
                         }
                      }else{
@@ -149,8 +167,11 @@ if(args.length>6)throw new Exception("Za duzo argumentow");
             throw new Exception("Niepoprawny typ figury");
                 
         }
+    
+    }catch(NumberFormatException e){
+        System.out.println("Zly format liczby");
     }catch(Exception e){
-        System.out.println(e.getMessage());
-    }
+            System.out.println(e.getMessage());
+}
 }
 }
