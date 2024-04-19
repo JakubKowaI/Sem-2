@@ -9,12 +9,18 @@ public class WierszTrojkataPascala {
         return iloczyn;
     }
 
-    WierszTrojkataPascala(int n)
+    WierszTrojkataPascala(int n)//(6 4)=(6/1)*(5/2)*(4/3)*(3/4)
     {
         wiersz = new int[n + 1];
         wiersz[0] = 1;
-        for (int i = 1; i <= n; i++) {
-            wiersz[i]=silnia(n)/(silnia(i)*silnia(n-i));
+        int wynik;
+
+        for(int i = 1; i <= n; i++) {
+            wynik=1;
+            for (int j = 1; j <= i; j++) {
+                wynik = wynik * (n-j+1)/j;
+            }
+            wiersz[i]=wynik;
         }
     }
 

@@ -1,1 +1,1 @@
-*
+getPreferredSize()

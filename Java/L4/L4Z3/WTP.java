@@ -2,6 +2,7 @@ import java.io.*;
 import java.awt.event.*;
 import java.awt.*;
 import javax.swing.JLabel;
+import javax.swing.JFrame;
 import javax.swing.SwingConstants;
 import java.lang.Process;
 
@@ -22,7 +23,7 @@ class MyButtonAdapter implements ActionListener{
     }
 }
 
-class MyFrame extends Frame{    
+class MyFrame extends JFrame{    
     JLabel wynik;
     TextField dane;
     MyButton button;
@@ -36,19 +37,21 @@ class MyFrame extends Frame{
         dane = new TextField("");
         button = new MyButton(this);
         p = new Panel();
-        setLayout(new GridLayout(1,2));
+        setLayout(new BorderLayout());
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) { System.exit(0); }
         });
-        p.setLayout(new GridLayout(2,1));
+        p.setLayout(new GridLayout(1,2));
         p.add(dane);
         p.add(button);
-        add(p);
-        add(wynik);
+        add(p,BorderLayout.NORTH);
+        add(wynik,BorderLayout.CENTER);
+        p.setPreferredSize(new Dimension(100,55));
     }
 
     public void action(){
         try {
+            if(Integer.parseInt(dane.getText())<0)throw new Exception("Za mala liczba");
             String s="<html><div style='text-align:center;'>";
             for(int i=0;i<=Integer.parseInt(dane.getText());i++){
                 for(int j=0;j<=i;j++){
@@ -56,13 +59,9 @@ class MyFrame extends Frame{
 String[] commands = {"./a", ""+i, ""+j};
 Process proc = rt.exec(commands);
 
-BufferedReader stdInput = new BufferedReader(new 
-     InputStreamReader(proc.getInputStream()));
+BufferedReader stdInput = new BufferedReader(new InputStreamReader(proc.getInputStream()));
 
-BufferedReader stdError = new BufferedReader(new 
-     InputStreamReader(proc.getErrorStream()));
-
-
+BufferedReader stdError = new BufferedReader(new InputStreamReader(proc.getErrorStream()));
 
                 s+=stdInput.readLine()+ " ";
                 }
@@ -72,6 +71,7 @@ BufferedReader stdError = new BufferedReader(new
             
         wynik.setText(s);
         dane.setText("");
+        this.pack();
         } catch (Exception e) {
             dane.setText("");
             wynik.setText(e.toString());
