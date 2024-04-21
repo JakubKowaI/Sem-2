@@ -30,12 +30,17 @@ public class WTP extends Application{
         root.setCenter(przycisk);
         root.setBottom(box);
         box.setAlignment(Pos.CENTER);
+        dane.setPromptText("Podaj liczbe wierszy");
+        dane.setPrefSize(200, 20);
+        przycisk.setPrefSize(200, 20);
         
         
         
         przycisk.setOnAction(new EventHandler<ActionEvent>() { 
             @Override
             public void handle(ActionEvent e) {
+                try{
+                    if(Integer.parseInt(dane.getText())<0)throw new Exception();
                 String s="";
                 box.getChildren().clear();
 
@@ -45,7 +50,13 @@ public class WTP extends Application{
             }
             
         dane.setText("");
+        dane.setPromptText("Podaj liczbe wierszy");
         primaryStage.sizeToScene();
+                }catch(Exception ex)
+                {
+                    dane.setText("");
+                    dane.setPromptText("Błedne dane! Podaj liczbe wierszy");
+                }
             }            
             });
             //wynik.setAlignment(Pos.CENTER);
