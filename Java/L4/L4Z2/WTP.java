@@ -2,6 +2,7 @@ import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.scene.control.Button;
@@ -22,22 +23,32 @@ public class WTP extends Application{
 
         TextArea dane = new TextArea();
         Button przycisk = new Button("Licz");
-        Label wynik = new Label();
-        BorderPane root = new BorderPane(wynik,dane,null,przycisk,null);
+        //Label wynik = new Label();
+        VBox box = new VBox();
+        BorderPane root = new BorderPane();
+        root.setTop(dane);
+        root.setCenter(przycisk);
+        root.setBottom(box);
+        box.setAlignment(Pos.CENTER);
+        
+        
         
         przycisk.setOnAction(new EventHandler<ActionEvent>() { 
             @Override
             public void handle(ActionEvent e) {
                 String s="";
-            for(int i=1;i<=Integer.parseInt(dane.getText());i++){
+                box.getChildren().clear();
+
+            for(int i=0;i<=Integer.parseInt(dane.getText());i++){
                 WierszTrojkataPascala w = new WierszTrojkataPascala(i);
-                s+=w.wypisz()+ "\n";
+                box.getChildren().add(new Label(w.wypisz()));
             }
-            wynik.setText(s);
+            
         dane.setText("");
-            }
+        primaryStage.sizeToScene();
+            }            
             });
-            wynik.setAlignment(Pos.CENTER);
+            //wynik.setAlignment(Pos.CENTER);
             Scene scene = new Scene(root);
         primaryStage.setScene(scene);
         primaryStage.setTitle("WTP");
