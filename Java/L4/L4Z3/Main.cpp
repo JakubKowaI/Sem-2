@@ -35,7 +35,7 @@ int main(int licznik, char* argumenty[]) {
             cout<<e<<endl;
         }catch(invalid_argument)
         {
-            cout<<argumenty[i]<<" | zly typ"<<endl;
+            cout<<argumenty[i]<<" | zly typ\n"<<endl;
         }catch(...)
         {
             cout<<"blad"<<endl;

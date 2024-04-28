@@ -2,6 +2,7 @@ import java.io.*;
 import java.awt.event.*;
 import java.awt.*;
 import javax.swing.JLabel;
+import javax.management.modelmbean.InvalidTargetObjectTypeException;
 import javax.swing.JFrame;
 import javax.swing.SwingConstants;
 import java.lang.Process;
@@ -51,28 +52,47 @@ class MyFrame extends JFrame{
 
     public void action(){
         try {
-            if(Integer.parseInt(dane.getText())<0)throw new Exception("Za mala liczba");
-            String s="<html><div style='text-align:center;'>";
-            for(int i=0;i<=Integer.parseInt(dane.getText());i++){
-                for(int j=0;j<=i;j++){
-                Runtime rt = Runtime.getRuntime();
-String[] commands = {"./a", ""+i, ""+j};
-Process proc = rt.exec(commands);
-
-BufferedReader stdInput = new BufferedReader(new InputStreamReader(proc.getInputStream()));
-
-BufferedReader stdError = new BufferedReader(new InputStreamReader(proc.getErrorStream()));
-
-                s+=stdInput.readLine()+ " ";
-                }
-                s+="<br/>";
-            }
-            s+="</div></html>";
             
+            String s="<html><div style='text-align:center'>";
+            String[] test=dane.getText().split("\\s+");
+            
+Runtime rt = Runtime.getRuntime();
+
+int i=0;
+String[] commands=new String[test.length+1];
+
+    commands[0]="./a";
+
+while(i<test.length){
+    //if(Integer.parseInt(test[i])<0)throw new Exception("Za mala liczba");
+
+    commands[i+1]=test[i];
+    
+    i++;
+}
+
+ProcessBuilder builder=new ProcessBuilder(commands);
+Process proces = builder.start();
+
+BufferedReader wyjscie = new BufferedReader(new InputStreamReader(proces.getInputStream()));
+
+BufferedReader bledy = new BufferedReader(new InputStreamReader(proces.getErrorStream()));
+//System.out.println(wyjscie.readLine());
+String temp;
+while((temp =wyjscie.readLine())!=null){
+                s+=temp+"<br/>";
+}
+                
+                
+            s+="</div></html>";
         wynik.setText(s);
         dane.setText("");
         this.pack();
-        } catch (Exception e) {
+}catch(NumberFormatException t){
+    dane.setText("");
+            wynik.setText("zly argument");
+}
+        catch (Exception e) {
             dane.setText("");
             wynik.setText(e.toString());
         }        
