@@ -31,6 +31,13 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import static javafx.application.Application.launch;
+import java.io.File;
+import java.io.IOException;
+import javax.swing.Action;
+import javax.swing.plaf.FileChooserUI;
+import javax.swing.plaf.LabelUI;
+import javafx.stage.FileChooser;
+import java.io.FileWriter;
 import javafx.application.Application; 
 import javafx.scene.Group; 
 import javafx.scene.Scene; 
@@ -59,6 +66,22 @@ import javafx.scene.Scene;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.paint.Color;
 import javafx.scene.input.*;
+import javafx.application.Application;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.control.CheckBox;
+import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
+import javafx.stage.Stage;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.StackPane;
+import javafx.scene.control.*;
+import javafx.scene.layout.BorderPane;
 
 public class L5Z1 extends Application {
 
@@ -73,9 +96,11 @@ public class L5Z1 extends Application {
         ColorPicker colorPicker = new ColorPicker();
         canvas.getChildren().add(colorPicker);
         colorPicker.setVisible(false);
+        VBox sidebar = new VBox(5);
 
         final Label choice= new Label("");
         final Label shift= new Label("");
+        final Label number = new Label("0");
 root.setOnKeyPressed(e->{
             if(e.isShiftDown()){
                 shift.setText("true");
@@ -164,7 +189,34 @@ root.setOnKeyPressed(e->{
                             }
                         });
                         
+                        circle.setOnMouseReleased(new EventHandler<MouseEvent>() {
+                            @Override
+                            public void handle(MouseEvent event) {
+                                if(event.getButton() == MouseButton.PRIMARY){
+                                    if(mousePos.getText()=="Mouse out of canvas"){
+                                        try{
+                                        File file = new File("Shape"+number.getText()+".txt");
+                                        if (file.createNewFile()) {
+                                            FileWriter myWriter = new FileWriter("Shape"+number.getText()+".txt");
+                                            myWriter.write("c\n"+circle.getFill()+"\n"+circle.getRadius());
+                                            myWriter.close();
+                                            System.out.println("File created: " + file.getName());
+                                        } else {
+                                            System.out.println("File already exists.");
+                                        }
+                                    }catch(IOException e){
+                                        System.out.println("An error occurred.");
+                                        e.printStackTrace();
+                                    }
+                                        canvas.getChildren().remove(circle);
+                                    }
+                                                                       
+                            }
+                            }
+                        });
+
                         canvas.getChildren().add(circle);
+                        number.setText(Integer.toString(Integer.parseInt(number.getText())+1));
                 }else{
                 if(choice.getText().equals("t")){
                     
@@ -231,7 +283,34 @@ root.setOnKeyPressed(e->{
                             }
                         });
 
+                        triangle.setOnMouseReleased(new EventHandler<MouseEvent>() {
+                            @Override
+                            public void handle(MouseEvent event) {
+                                if(event.getButton() == MouseButton.PRIMARY){
+                                    if(mousePos.getText()=="Mouse out of canvas"){
+                                        try{
+                                        File file = new File("Shape"+number.getText()+".txt");
+                                        if (file.createNewFile()) {
+                                            FileWriter myWriter = new FileWriter("Shape"+number.getText()+".txt");
+                                            myWriter.write("t\n"+triangle.getFill()+"\n"+triangle.getPoints().get(0)+"\n"+triangle.getPoints().get(1)+"\n"+triangle.getPoints().get(2)+"\n"+triangle.getPoints().get(3)+"\n"+triangle.getPoints().get(4)+"\n"+triangle.getPoints().get(5)+"\n");
+                                            myWriter.close();
+                                            System.out.println("File created: " + file.getName());
+                                        } else {
+                                            System.out.println("File already exists.");
+                                        }
+                                    }catch(IOException e){
+                                        System.out.println("An error occurred.");
+                                        e.printStackTrace();
+                                    }
+                                        canvas.getChildren().remove(triangle);
+                                    }
+                                                                       
+                            }
+                            }
+                        });
+
                         canvas.getChildren().add(triangle);
+                        number.setText(Integer.toString(Integer.parseInt(number.getText())+1));
                     }else{
                     if(choice.getText().equals("r")){
                     
@@ -264,6 +343,32 @@ root.setOnKeyPressed(e->{
                                 rect.setY(rect.getHeight()/-2+event.getY());
                             }
                         });
+
+                        rect.setOnMouseReleased(new EventHandler<MouseEvent>() {
+                            @Override
+                            public void handle(MouseEvent event) {
+                                if(event.getButton() == MouseButton.PRIMARY){
+                                    if(mousePos.getText()=="Mouse out of canvas"){
+                                        try{
+                                        File file = new File("Shape"+number.getText()+".txt");
+                                        if (file.createNewFile()) {
+                                            FileWriter myWriter = new FileWriter("Shape"+number.getText()+".txt");
+                                            myWriter.write("r\n"+rect.getFill()+"\n"+rect.getHeight()+"\n"+rect.getWidth());
+                                            myWriter.close();
+                                            System.out.println("File created: " + file.getName());
+                                        } else {
+                                            System.out.println("File already exists.");
+                                        }
+                                    }catch(IOException e){
+                                        System.out.println("An error occurred.");
+                                        e.printStackTrace();
+                                    }
+                                        canvas.getChildren().remove(rect);
+                                    }
+                                                                       
+                            }
+                            }
+                        });
                         
                         rect.setOnScroll(new EventHandler<ScrollEvent>() {
                             @Override
@@ -287,6 +392,7 @@ root.setOnKeyPressed(e->{
                             }
                         });
                         canvas.getChildren().add(rect);
+                        number.setText(Integer.toString(Integer.parseInt(number.getText())+1));
                     }}}
                 
                 choice.setText("");
@@ -295,6 +401,8 @@ root.setOnKeyPressed(e->{
 
         MenuBar mainMenu = new MenuBar();
         Menu menu1 = new Menu("Info");
+        Menu load = new Menu("Load");
+        MenuItem loadItem = new Menu("Load Item");
 
         MenuItem guide = new MenuItem("Guide");
         guide.setOnAction(new EventHandler<ActionEvent>() {
@@ -322,7 +430,15 @@ root.setOnKeyPressed(e->{
             }
         });
 
-        VBox sidebar = new VBox(5);
+        loadItem.setOnAction(new EventHandler<ActionEvent>(){
+            @Override
+            public void handle(ActionEvent event){
+                FileChooser fileDir = new FileChooser(); 
+                File file=fileDir.showOpenDialog(null);
+            }
+        });
+
+        
         Button circle = new Button("Circle");
         circle.setOnAction(e->{
             choice.setText("c");
@@ -336,15 +452,23 @@ root.setOnKeyPressed(e->{
             choice.setText("r");
         });
         
-        sidebar.getChildren().addAll(circle, triangle, rectangle,mousePos,mouseClicked,shift);
-        sidebar.setAlignment(javafx.geometry.Pos.TOP_RIGHT);
+        ImageView im = new ImageView("flower.jpg");
+        im.setFitHeight(100);
+        im.setFitWidth(125);
         
 
-        root.setRight(sidebar);
+        
+
+        sidebar.getChildren().addAll(circle, triangle, rectangle,im,mousePos,mouseClicked,shift);
+        sidebar.setAlignment(javafx.geometry.Pos.TOP_RIGHT);
+        
+        
         menu1.getItems().addAll(guide, info);
-        mainMenu.getMenus().add(menu1);
+        load.getItems().add(loadItem);
+        mainMenu.getMenus().addAll(menu1,load);
         root.setTop(mainMenu);
         root.setCenter(canvas);
+        root.setRight(sidebar);
         Scene scene = new Scene(root, 600, 500, Color.WHITESMOKE);        
 
         stage.setTitle("Paint 7D");
