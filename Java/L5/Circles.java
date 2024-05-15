@@ -96,6 +96,12 @@ public class Circles extends Circle{
             @Override
             public void handle(MouseEvent event) {
                 try{
+                    if(event.getSceneX()<=canvas.getWidth() && event.getSceneY()<=canvas.getHeight()){
+                        mousePos.setText("Mouse position: " + event.getSceneX() + ", " + event.getSceneY());  
+                    }else{
+                        mousePos.setText("Mouse out of canvas");
+                    }    
+
                 setCenterX(event.getX());
                 setCenterY(event.getY());
                 }catch(Exception e){
@@ -110,19 +116,13 @@ public class Circles extends Circle{
             public void handle(ScrollEvent event) {
                 try{
                 if(shift.getText().equals("true")){
-                    rotatation.setAngle(rotatation.getAngle() + event.getDeltaY());
-                    rotatation.setPivotX(getCenterX());
-                    rotatation.setPivotY(getCenterY());
-                    getTransforms().add(rotatation);
+                    
                 }else{
-                    scalePos.setPivotX(getCenterX());
-                    scalePos.setPivotY(getCenterY());
-                    scaleNeg.setPivotX(getCenterX());
-                    scaleNeg.setPivotY(getCenterY());
+                    
                 if(event.getDeltaY() > 0){
-                    getTransforms().add(scalePos);
+                    setRadius(getRadius()+event.getDeltaY());
                 }else{
-                    getTransforms().add(scaleNeg);
+                    setRadius(getRadius()+event.getDeltaY());
                 }
                 }
             }catch(Exception e){
@@ -132,7 +132,7 @@ public class Circles extends Circle{
             }
         });
         
-        setOnMouseReleased(new EventHandler<MouseEvent>() {
+        /*setOnMouseReleased(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
                 if(event.getButton() == MouseButton.PRIMARY){
@@ -141,7 +141,7 @@ public class Circles extends Circle{
                             File file = new File("Shape"+number.getText()+".txt");
                             if(file.createNewFile()){
                                 FileWriter myWriter = new FileWriter("Shape"+number.getText()+".txt");
-                                myWriter.write("r\n"+getFill()+"\n"+getRadius());
+                                myWriter.write("c\n"+getFill()+"\n"+getRadius());
                                 myWriter.close();
                                 System.out.println("File created: " + file.getName());
                                 canvas.getChildren().remove(this);
@@ -167,6 +167,6 @@ public class Circles extends Circle{
                 }                 
         }
     }
-        });        
+        }); */       
     }
 }

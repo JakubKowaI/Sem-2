@@ -58,6 +58,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.control.*;
 
 public class Rectang extends Rectangle{
+    Rotate rotatation = new Rotate();
     Rectang(Scene scene){
         super(100,50);
         Pane canvas = (Pane) scene.lookup("#canvas");
@@ -72,7 +73,7 @@ public class Rectang extends Rectangle{
         Scale scaleNeg = new Scale();
         scaleNeg.setX(0.9);
         scaleNeg.setY(0.9);
-        Rotate rotatation = new Rotate();
+        
 
         setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
@@ -95,6 +96,12 @@ public class Rectang extends Rectangle{
             @Override
             public void handle(MouseEvent event) {
                 try{
+                    if(event.getSceneX()<=canvas.getWidth() && event.getSceneY()<=canvas.getHeight()){
+                        mousePos.setText("Mouse position: " + event.getSceneX() + ", " + event.getSceneY());  
+                    }else{
+                        mousePos.setText("Mouse out of canvas");
+                    }
+
                 setX(getWidth()/-2+event.getX());
                 setY(getHeight()/-2+event.getY());
                 }catch(Exception e){
@@ -104,7 +111,7 @@ public class Rectang extends Rectangle{
             }
         });
 
-        setOnMouseReleased(new EventHandler<MouseEvent>() {
+        /*setOnMouseReleased(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
                 if(event.getButton() == MouseButton.PRIMARY){
@@ -113,7 +120,8 @@ public class Rectang extends Rectangle{
                         File file = new File("Shape"+number.getText()+".txt");
                         if(file.createNewFile()){
                             FileWriter myWriter = new FileWriter("Shape"+number.getText()+".txt");
-                            myWriter.write("r\n"+getFill()+"\n"+getHeight()+"\n"+getWidth());
+                            myWriter.write("r\n"+getFill()+"\n"+getScaleX()+"\n"+getScaleY()+"\n"+rotatation.getAngle()+"\n"+getX()+"\n"+getY());
+                            System.out.println(getHeight()+getWidth());
                             myWriter.close();
                             System.out.println("File created: " + file.getName());
                             canvas.getChildren().remove(this);
@@ -126,7 +134,8 @@ public class Rectang extends Rectangle{
                         } 
                         FileWriter myWriter = new FileWriter("Shape"+(Integer.parseInt(number.getText())-1)+".txt");
                         number.setText(String.valueOf(Integer.parseInt(number.getText())+1));
-                        myWriter.write("r\n"+getFill()+"\n"+getHeight()+"\n"+getWidth());
+                        myWriter.write("r\n"+getFill()+"\n"+getScaleX()+"\n"+getScaleY()+"\n"+rotatation.getAngle()+"\n"+getX()+"\n"+getY());
+                        System.out.println(getHeight()+""+getWidth());
                         myWriter.close();
                         System.out.println("File created: " + file.getName());
                         canvas.getChildren().remove(this);
@@ -139,26 +148,27 @@ public class Rectang extends Rectangle{
                     }                                                        
                 }                
             }
-        });
+        });*/
+
+        
         
         setOnScroll(new EventHandler<ScrollEvent>() {
             @Override
             public void handle(ScrollEvent event) {
                 try{
                 if(shift.getText().equals("true")){
-                    rotatation.setAngle(rotatation.getAngle() + event.getDeltaY());
+                    /*rotatation.setAngle(rotatation.getAngle() + event.getDeltaY());
                     rotatation.setPivotX(getX()+getWidth()/2);
                     rotatation.setPivotY(getY()+getHeight()/2);
-                    getTransforms().add(rotatation);
-                }else{
-                    scalePos.setPivotX(getX()+getWidth()/2);
-                    scalePos.setPivotY(getY()+getHeight()/2);
-                    scaleNeg.setPivotX(getX()+getWidth()/2);
-                    scaleNeg.setPivotY(getY()+getHeight()/2);
+                    getTransforms().add(rotatation);*/
+                    setRotate(getRotate()+event.getDeltaY());
+                }else{                    
                     if(event.getDeltaY() > 0){
-                        getTransforms().add(scalePos);
+                        setScaleX(getScaleX()*1.1);
+                        setScaleY(getScaleY()*1.1);
                     }else{
-                        getTransforms().add(scaleNeg);
+                        setScaleX(getScaleX()*0.9);
+                        setScaleY(getScaleY()*0.9);
                     }
                 }
                 }catch(Exception e){
@@ -168,4 +178,7 @@ public class Rectang extends Rectangle{
             }
         });        
     }                
+    public Rotate pivot(){
+        return rotatation;
+    }
 }

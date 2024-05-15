@@ -66,11 +66,16 @@ public class L5Z1 extends Application {
         BorderPane root = new BorderPane();
         Pane canvas = new Pane();
         canvas.setId("canvas");
+        canvas.setStyle("-fx-background-color: #FFFFFF;");
+        canvas.setMinWidth(800);
+        canvas.setMinHeight(500);
         ColorPicker colorPicker = new ColorPicker();
         canvas.getChildren().add(colorPicker);
         colorPicker.setVisible(false);
         colorPicker.setId("colorPicker");
-        VBox sidebar = new VBox(5);
+        VBox sidebar = new VBox(5);        
+        sidebar.setMaxWidth(200);
+        sidebar.setMinWidth(200);
         MenuBar mainMenu = new MenuBar();
         Menu menu1 = new Menu("Info");
         Menu load = new Menu("Load");
@@ -78,21 +83,28 @@ public class L5Z1 extends Application {
         final Label choice= new Label("");
         final Label shift= new Label("false");
         shift.setId("shift");
+        shift.setVisible(false);
         final Label number = new Label("0");
         number.setId("number1");
+        number.setVisible(false);
         Label mousePos = new Label("");
         mousePos.setId("mousePos");
+        mousePos.setVisible(true);
         Label mouseClicked= new Label("");
+        mouseClicked.setVisible(false);
         Info info = new Info();
-        Button circle = new Button("Circle");
-        Button triangle = new Button("Triangle");
-        Button rectangle = new Button("Rectangle");
-        ImageView im = new ImageView("flower.jpg");
-        Scene scene = new Scene(root, 600, 500, Color.WHITESMOKE);
+        Button circleBtn = new Button("Circle");
+        circleBtn.setMaxWidth(100);
+        Button triangleBtn = new Button("Triangle");
+        triangleBtn.setMaxWidth(100);
+        Button rectangleBtn = new Button("Rectangle");
+        rectangleBtn.setMaxWidth(100);
+        Scene scene = new Scene(root, 1000, 500, Color.WHITESMOKE);
         root.setTop(mainMenu);
         root.setCenter(canvas);
-        root.setRight(sidebar);
+        root.setRight(sidebar);       
         LoadItem loadItem = new LoadItem(scene);
+        SaveItem saveItem = new SaveItem(scene);
 
         root.setOnKeyPressed(e->{
             if(e.isShiftDown()){
@@ -109,10 +121,17 @@ public class L5Z1 extends Application {
                 shift.setText("false");
             }
         });        
+
+        sidebar.setOnMouseMoved(e->{
+            mousePos.setText("Mouse out of canvas");
+        });
+
         canvas.setOnMouseMoved(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                mousePos.setText("Mouse position: " + event.getX() + ", " + event.getY());                
+                if(event.getSceneX()<=canvas.getWidth() && event.getSceneY()<=canvas.getHeight()){
+                    mousePos.setText("Mouse position: " + event.getSceneX() + ", " + event.getSceneY());   
+                }                                       
             }
         });
         canvas.setOnMouseExited(new EventHandler<MouseEvent>() {
@@ -153,26 +172,23 @@ public class L5Z1 extends Application {
                 }
         });
 
-        circle.setOnAction(e->{
+        circleBtn.setOnAction(e->{
             choice.setText("c");
         });
         
-        triangle.setOnAction(e->{
+        triangleBtn.setOnAction(e->{
             choice.setText("t");
         });
         
-        rectangle.setOnAction(e->{
+        rectangleBtn.setOnAction(e->{
             choice.setText("r");
         });        
         
-        im.setFitHeight(100);
-        im.setFitWidth(125);
-        
-        sidebar.getChildren().addAll(circle, triangle, rectangle,im,mousePos,mouseClicked,shift,number);
+        sidebar.getChildren().addAll(circleBtn, triangleBtn, rectangleBtn,mousePos,mouseClicked,shift,number);
         sidebar.setAlignment(javafx.geometry.Pos.TOP_RIGHT);
         
         menu1.getItems().addAll(guide, info);
-        load.getItems().add(loadItem);
+        load.getItems().addAll(loadItem,saveItem);
         mainMenu.getMenus().addAll(menu1,load);
 
         stage.setTitle("Paint 7D");

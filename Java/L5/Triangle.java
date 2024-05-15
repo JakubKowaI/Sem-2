@@ -58,6 +58,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.control.*;
 
 public class Triangle extends Polygon{
+    Rotate rotatation = new Rotate();
     Triangle(Scene scene){
         super();
         Pane canvas = (Pane) scene.lookup("#canvas");
@@ -72,11 +73,12 @@ public class Triangle extends Polygon{
         Scale scaleNeg = new Scale();
         scaleNeg.setX(0.9);
         scaleNeg.setY(0.9);
-        Rotate rotatation = new Rotate();
+        
 
         setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
+                try{
                 if(event.getButton() == MouseButton.SECONDARY){                                    
                     colorPicker.relocate(event.getX(), event.getY()-colorPicker.getHeight());
                     colorPicker.show();
@@ -84,12 +86,22 @@ public class Triangle extends Polygon{
                         setFill(colorPicker.getValue());
                     });                                    
             }
+            }catch(Exception e){
+                System.out.println("An error occurred.");
+                e.printStackTrace();
+            }
             }
         });
 
         setOnMouseDragged(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
+                try{
+                if(event.getSceneX()<=canvas.getWidth() && event.getSceneY()<=canvas.getHeight()){
+                    mousePos.setText("Mouse position: " + event.getSceneX() + ", " + event.getSceneY());  
+                }else{
+                    mousePos.setText("Mouse out of canvas");
+                }    
                 
                 getPoints().set(0, event.getX());//Zapytac czemu dziala!!!!
                 getPoints().set(1, event.getY()-25);
@@ -97,34 +109,43 @@ public class Triangle extends Polygon{
                 getPoints().set(3, event.getY()+25);
                 getPoints().set(4, event.getX()-30);
                 getPoints().set(5, event.getY()+25);
+                }catch(Exception e){
+                    System.out.println("An error occurred.");
+                    e.printStackTrace();
+                }
             }
         });
         
         setOnScroll(new EventHandler<ScrollEvent>() {
             @Override
             public void handle(ScrollEvent event) {
+                try{
                 if(shift.getText().equals("true")){
-                    rotatation.setAngle(rotatation.getAngle() + event.getDeltaY());
+                    /*rotatation.setAngle(rotatation.getAngle() + event.getDeltaY());
                     rotatation.setPivotX((getPoints().get(0)+getPoints().get(2)+getPoints().get(4))/3);
                     rotatation.setPivotY((getPoints().get(1)+getPoints().get(3)+getPoints().get(5))/3);
-                    getTransforms().add(rotatation);
-                }else{
-                    scalePos.setPivotX((getPoints().get(0)+getPoints().get(2)+getPoints().get(4))/3);
-                    scalePos.setPivotY((getPoints().get(1)+getPoints().get(3)+getPoints().get(5))/3);
-                    scaleNeg.setPivotX((getPoints().get(0)+getPoints().get(2)+getPoints().get(4))/3);
-                    scaleNeg.setPivotY((getPoints().get(1)+getPoints().get(3)+getPoints().get(5))/3);
+                    getTransforms().add(rotatation);*/
+                    setRotate(getRotate()+event.getDeltaY());
+                }else{                    
                     if(event.getDeltaY() > 0){
-                getTransforms().add(scalePos);
+                setScaleX(getScaleX()*1.1);
+                setScaleY(getScaleY()*1.1);
             }else{
-                getTransforms().add(scaleNeg);
+                setScaleX(getScaleY()*0.9);
+                setScaleY(getScaleY()*0.9);
             }
+                }
+                }catch(Exception e){
+                    System.out.println("An error occurred.");
+                    e.printStackTrace();
                 }
             }
         });
 
-        setOnMouseReleased(new EventHandler<MouseEvent>() {
+        /*setOnMouseReleased(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
+                try{
                 if(event.getButton() == MouseButton.PRIMARY){
                     if(mousePos.getText()=="Mouse out of canvas"){
                         try{                     
@@ -157,7 +178,14 @@ public class Triangle extends Polygon{
                     }
                                                        
             }
+        }catch(Exception e){
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
             }
-        });
+        });*/
+    }
+    public Rotate pivot(){
+        return rotatation;
     }
 }

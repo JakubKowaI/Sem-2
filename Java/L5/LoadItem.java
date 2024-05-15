@@ -59,53 +59,65 @@ import javafx.scene.control.*;
 
 public class LoadItem extends MenuItem {
     LoadItem(Scene scene){
-        super("Load Item");
+        super("Load Items");
         Pane canvas = (Pane) scene.lookup("#canvas");
         setOnAction(new EventHandler<ActionEvent>(){
             @Override
             public void handle(ActionEvent event){
+                try { 
+                    try{
+                        while(canvas.getChildren().get(0)!=null)canvas.getChildren().remove(canvas.getChildren().get(0));
+                    }catch(Exception e){
+                    }
+                    
                 FileChooser fileDir = new FileChooser(); 
                 File file=fileDir.showOpenDialog(null);                
-                try {                
+                               
                 Scanner reader = new Scanner(file);
                 
-                    String data = reader.nextLine();
-                    System.out.println(data);
-                    
-                        if(data.equals("c")){
-                            try{
-                            String color = reader.nextLine();
-                            System.out.println(color);
-                            String radius = reader.nextLine();
-                            Circle circle = new Circle(Double.parseDouble(radius));
-                            circle.setFill(Color.web(color));
+                    String data=reader.nextLine();
+                    //System.out.println(data);
+                    try{
+                    while(data!=null){
+                        
+                        System.out.println("|"+data);
+                        if(data.equals("c")){                          
+                            Circles circle = new Circles(scene);
                             canvas.getChildren().add(circle);
-                            circle.setCenterX(canvas.getWidth()/2);
-                            circle.setCenterY(canvas.getHeight()/2);
-                            }catch(Exception e){
-                                System.out.println("An error occurred.");
-                                e.printStackTrace();
-                            }
+                            circle.setFill(Color.web(reader.nextLine()));
+                            circle.setRadius(Double.parseDouble(reader.nextLine()));
+                            circle.setCenterX(Double.parseDouble(reader.nextLine()));
+                            circle.setCenterY(Double.parseDouble(reader.nextLine()));
+                            System.out.println("c");
                         }else if (data.equals("t")) {
                             Triangle triangle = new Triangle(scene);
+                            canvas.getChildren().add(triangle); 
                             triangle.setFill(Color.web(reader.nextLine()));
                             triangle.getPoints().addAll(new Double[]{
-                            Double.parseDouble(reader.nextLine()), Double.parseDouble(reader.nextLine()),
-                            Double.parseDouble(reader.nextLine()), Double.parseDouble(reader.nextLine()),
-                            Double.parseDouble(reader.nextLine()), Double.parseDouble(reader.nextLine())
+                                Double.parseDouble(reader.nextLine()), Double.parseDouble(reader.nextLine()),
+                                Double.parseDouble(reader.nextLine()), Double.parseDouble(reader.nextLine()),
+                                Double.parseDouble(reader.nextLine()), Double.parseDouble(reader.nextLine())
                             });
-
-                        canvas.getChildren().add(triangle);   
+                            triangle.setRotate(Double.parseDouble(reader.nextLine()));
+                            triangle.setScaleX(Double.parseDouble(reader.nextLine()));
+                            triangle.setScaleY(Double.parseDouble(reader.nextLine()));
+                            System.out.println("t");
                             
                         }else if (data.equals("r")) {
-                        Rectang rectangle = new Rectang(scene);
-                        canvas.getChildren().add(rectangle);
-                        rectangle.setX(canvas.getWidth()/2);
-                        rectangle.setY(canvas.getHeight()/2);
-                        rectangle.setFill(Color.web(reader.nextLine()));
-                        rectangle.setHeight(Double.parseDouble(reader.nextLine()));
-                        rectangle.setWidth(Double.parseDouble(reader.nextLine()));             
-                        }                
+                            Rectang rectangle = new Rectang(scene);
+                            canvas.getChildren().add(rectangle);
+                            rectangle.setFill(Color.web(reader.nextLine()));
+                            rectangle.setScaleX(Double.parseDouble(reader.nextLine()));
+                            rectangle.setScaleY(Double.parseDouble(reader.nextLine()));
+                            rectangle.setRotate(Double.parseDouble(reader.nextLine()));
+                            rectangle.setX(Double.parseDouble(reader.nextLine()));
+                            rectangle.setY(Double.parseDouble(reader.nextLine()));            
+                            System.out.println("r");
+                        }          
+                              data=reader.nextLine();
+                    }
+                    
+                }catch(Exception e){}
                 reader.close();
                 } catch (FileNotFoundException e) {
                 System.out.println("An error occurred.");
