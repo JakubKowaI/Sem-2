@@ -85,11 +85,11 @@ public class SaveItem extends MenuItem {
                                               
                         myWriter.write("r\n");                                                
                         myWriter.write(r.getFill().toString()+"\n");
+                        myWriter.write(r.getX()+"\n");
+                        myWriter.write(r.getY()+"\n");
                         myWriter.write(r.getScaleX()+"\n");
                         myWriter.write(r.getScaleY()+"\n");
                         myWriter.write(r.getRotate()+"\n");
-                        myWriter.write(r.getX()+"\n");
-                        myWriter.write(r.getY()+"\n");
                         
                         System.out.println("Rectangle");
                     }else if(canvas.getChildren().get(i) instanceof Triangle){

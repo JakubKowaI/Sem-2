@@ -107,11 +107,11 @@ public class LoadItem extends MenuItem {
                             Rectang rectangle = new Rectang(scene);
                             canvas.getChildren().add(rectangle);
                             rectangle.setFill(Color.web(reader.nextLine()));
+                            rectangle.setX(Double.parseDouble(reader.nextLine()));
+                            rectangle.setY(Double.parseDouble(reader.nextLine()));            
                             rectangle.setScaleX(Double.parseDouble(reader.nextLine()));
                             rectangle.setScaleY(Double.parseDouble(reader.nextLine()));
                             rectangle.setRotate(Double.parseDouble(reader.nextLine()));
-                            rectangle.setX(Double.parseDouble(reader.nextLine()));
-                            rectangle.setY(Double.parseDouble(reader.nextLine()));            
                             System.out.println("r");
                         }          
                               data=reader.nextLine();
