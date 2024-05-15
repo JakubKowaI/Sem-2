@@ -67,15 +67,15 @@ public class L5Z1 extends Application {
         Pane canvas = new Pane();
         canvas.setId("canvas");
         canvas.setStyle("-fx-background-color: #FFFFFF;");
-        canvas.setMinWidth(800);
+        canvas.setMinWidth(900);
         canvas.setMinHeight(500);
         ColorPicker colorPicker = new ColorPicker();
         canvas.getChildren().add(colorPicker);
         colorPicker.setVisible(false);
         colorPicker.setId("colorPicker");
         VBox sidebar = new VBox(5);        
-        sidebar.setMaxWidth(200);
-        sidebar.setMinWidth(200);
+        sidebar.setMaxWidth(100);
+        sidebar.setMinWidth(100);
         MenuBar mainMenu = new MenuBar();
         Menu menu1 = new Menu("Info");
         Menu load = new Menu("Load");
@@ -89,7 +89,7 @@ public class L5Z1 extends Application {
         number.setVisible(false);
         Label mousePos = new Label("");
         mousePos.setId("mousePos");
-        mousePos.setVisible(true);
+        mousePos.setVisible(false);
         Label mouseClicked= new Label("");
         mouseClicked.setVisible(false);
         Info info = new Info();

@@ -66,23 +66,23 @@ public class SaveItem extends MenuItem {
             public void handle(ActionEvent event){                               
                 try {
                     int j=0;
-                    File file = new File("filename"+j+".txt");
+                    File file = new File("Canvas"+j+".txt");
                     if(file.createNewFile()){
                         System.out.println("File created: "+file.getName());
                         
                     }else{
                         while(file.exists()){
                             j++;
-                            file = new File("filename"+j+".txt");
+                            file = new File("Canvas"+j+".txt");
                         }
                     }
-                    FileWriter myWriter = new FileWriter("filename"+j+".txt");
-
+                    
+                    FileWriter myWriter = new FileWriter("Canvas"+j+".txt");
+                    System.out.println("File created: "+file.getName());
                     try{
                 for(int i=0;canvas.getChildren().get(i)!=null;i++){                    
                     if(canvas.getChildren().get(i) instanceof Rectang ){
-                        Rectang r = (Rectang) canvas.getChildren().get(i);  
-                                              
+                        Rectang r = (Rectang) canvas.getChildren().get(i);                                              
                         myWriter.write("r\n");                                                
                         myWriter.write(r.getFill().toString()+"\n");
                         myWriter.write(r.getX()+"\n");
