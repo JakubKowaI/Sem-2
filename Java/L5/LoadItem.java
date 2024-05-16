@@ -56,13 +56,28 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.control.*;
-
+/**
+ * Class LoadItem is a class that loads the items from a file to the canvas
+ * @param scene is a Scene object that is used to get the canvas
+ */
 public class LoadItem extends MenuItem {
+    /**
+     * LoadItem is a constructor that loads the items from a file to the canvas
+     * @param scene is a Scene object that is used to get the canvas
+     */
     LoadItem(Scene scene){
         super("Load Items");
         Pane canvas = (Pane) scene.lookup("#canvas");
+        /**
+         * setOnAction is a method that loads the items from a file to the canvas
+         */
         setOnAction(new EventHandler<ActionEvent>(){
             @Override
+            /**
+             * handle is a method that loads the items from a file to the canvas
+             * @param event
+             * @throws FileNotFoundException
+             */
             public void handle(ActionEvent event){
                 try { 
                     try{

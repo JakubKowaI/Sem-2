@@ -56,9 +56,15 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.control.*;
-
+/**
+ * Class Rectang is a class that creates a rectangle object
+ * @param scene is a scene object
+ */
 public class Rectang extends Rectangle{
-    Rotate rotatation = new Rotate();
+    /**
+     * Constructor of the Rectang class
+     * @param scene
+     */
     Rectang(Scene scene){
         super(100,50);
         Pane canvas = (Pane) scene.lookup("#canvas");
@@ -66,17 +72,16 @@ public class Rectang extends Rectangle{
         Label shift = (Label) scene.getRoot().lookup("#shift");
         Label number = (Label) scene.getRoot().lookup("#number1");
         ColorPicker colorPicker = (ColorPicker) scene.lookup("#colorPicker");
-
-        Scale scalePos = new Scale();
-        scalePos.setX(1.1);
-        scalePos.setY(1.1);
-        Scale scaleNeg = new Scale();
-        scaleNeg.setX(0.9);
-        scaleNeg.setY(0.9);
-        
-
+        /**
+         * setOnMouseClicked is a method that sets the action of the right mouse button click to change the color of the shape
+         */
         setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
+            /**
+             * Method that sets the action of the right mouse button click to change the color of the shape
+             * @param event
+             * @throws Exception
+             */
             public void handle(MouseEvent event) {
                 try{
                 if(event.getButton() == MouseButton.SECONDARY){                    
@@ -92,8 +97,16 @@ public class Rectang extends Rectangle{
                 }
             }
         });
+        /**
+         * setOnMouseDragged is a method that sets the action of the mouse drag to move the shape
+         */
         setOnMouseDragged(new EventHandler<MouseEvent>() {
             @Override
+            /**
+             * Method that sets the action of the mouse drag to move the shape
+             * @param event
+             * @throws Exception
+             */
             public void handle(MouseEvent event) {
                 try{
                     if(event.getSceneX()<=canvas.getWidth() && event.getSceneY()<=canvas.getHeight()){
@@ -110,57 +123,19 @@ public class Rectang extends Rectangle{
                 }
             }
         });
-
-        /*setOnMouseReleased(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                if(event.getButton() == MouseButton.PRIMARY){
-                    if(mousePos.getText()=="Mouse out of canvas"){
-                        try{
-                        File file = new File("Shape"+number.getText()+".txt");
-                        if(file.createNewFile()){
-                            FileWriter myWriter = new FileWriter("Shape"+number.getText()+".txt");
-                            myWriter.write("r\n"+getFill()+"\n"+getScaleX()+"\n"+getScaleY()+"\n"+rotatation.getAngle()+"\n"+getX()+"\n"+getY());
-                            System.out.println(getHeight()+getWidth());
-                            myWriter.close();
-                            System.out.println("File created: " + file.getName());
-                            canvas.getChildren().remove(this);
-                            setVisible(false);    
-                        }else{
-                        while (!(file.createNewFile())) {
-                            file = new File("Shape"+number.getText()+".txt");
-                            System.out.println("File already exists."+ number.getText());
-                            number.setText(String.valueOf(Integer.parseInt(number.getText())+1));
-                        } 
-                        FileWriter myWriter = new FileWriter("Shape"+(Integer.parseInt(number.getText())-1)+".txt");
-                        number.setText(String.valueOf(Integer.parseInt(number.getText())+1));
-                        myWriter.write("r\n"+getFill()+"\n"+getScaleX()+"\n"+getScaleY()+"\n"+rotatation.getAngle()+"\n"+getX()+"\n"+getY());
-                        System.out.println(getHeight()+""+getWidth());
-                        myWriter.close();
-                        System.out.println("File created: " + file.getName());
-                        canvas.getChildren().remove(this);
-                        setVisible(false);    
-                    }
-                    }catch(IOException e){
-                        System.out.println("An error occurred.");
-                        e.printStackTrace();
-                    }                        
-                    }                                                        
-                }                
-            }
-        });*/
-
-        
-        
+        /**
+         * setOnScroll is a method that sets the action of the mouse scroll to rotate or scale the shape
+         */
         setOnScroll(new EventHandler<ScrollEvent>() {
             @Override
+            /**
+             * Method that sets the action of the mouse scroll to rotate or scale the shape
+             * @param event
+             * @throws Exception
+             */
             public void handle(ScrollEvent event) {
                 try{
-                if(shift.getText().equals("true")){
-                    /*rotatation.setAngle(rotatation.getAngle() + event.getDeltaY());
-                    rotatation.setPivotX(getX()+getWidth()/2);
-                    rotatation.setPivotY(getY()+getHeight()/2);
-                    getTransforms().add(rotatation);*/
+                if(shift.getText().equals("true")){                    
                     setRotate(getRotate()+event.getDeltaY());
                 }else{                    
                     if(event.getDeltaY() > 0){
@@ -178,7 +153,5 @@ public class Rectang extends Rectangle{
             }
         });        
     }                
-    public Rotate pivot(){
-        return rotatation;
-    }
+    
 }

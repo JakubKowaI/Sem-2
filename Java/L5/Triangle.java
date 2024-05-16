@@ -56,9 +56,15 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.control.*;
-
+/**
+ * Class Triangle is a class that creates a triangle object
+ * @param scene 
+ */
 public class Triangle extends Polygon{
-    Rotate rotatation = new Rotate();
+    /**
+     * Constructor of the Triangle class
+     * @param scene
+     */
     Triangle(Scene scene){
         super();
         Pane canvas = (Pane) scene.lookup("#canvas");
@@ -66,17 +72,16 @@ public class Triangle extends Polygon{
         Label shift = (Label) scene.getRoot().lookup("#shift");
         Label number = (Label) scene.getRoot().lookup("#number1");
         ColorPicker colorPicker = (ColorPicker) scene.lookup("#colorPicker");
-                        
-        Scale scalePos = new Scale();
-        scalePos.setX(1.1);
-        scalePos.setY(1.1);
-        Scale scaleNeg = new Scale();
-        scaleNeg.setX(0.9);
-        scaleNeg.setY(0.9);
-        
-
+        /**
+         * setOnMouseClicked is a method that sets the action of the right mouse button click in order to change color of the shape
+         */
         setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
+            /**
+             * Method that sets the action of the right mouse button click in order to change color of the shape
+             * @param event
+             * @throws Exception
+             */
             public void handle(MouseEvent event) {
                 try{
                 if(event.getButton() == MouseButton.SECONDARY){                                    
@@ -92,9 +97,16 @@ public class Triangle extends Polygon{
             }
             }
         });
-
+        /**
+         * setOnMouseDragged is a method that sets the action of the mouse drag in order to move the shape
+         */
         setOnMouseDragged(new EventHandler<MouseEvent>() {
             @Override
+            /**
+             * Method that sets the action of the mouse drag in order to move the shape
+             * @param event
+             * @throws Exception
+             */
             public void handle(MouseEvent event) {
                 try{
                 if(event.getSceneX()<=canvas.getWidth() && event.getSceneY()<=canvas.getHeight()){
@@ -115,16 +127,19 @@ public class Triangle extends Polygon{
                 }
             }
         });
-        
+        /**
+         * setOnScroll is a method that sets the action of the scroll in order to zoom in and out the shape
+         */
         setOnScroll(new EventHandler<ScrollEvent>() {
             @Override
+            /**
+             * Method that sets the action of the scroll in order to zoom in and out the shape
+             * @param event
+             * @throws Exception
+             */
             public void handle(ScrollEvent event) {
                 try{
                 if(shift.getText().equals("true")){
-                    /*rotatation.setAngle(rotatation.getAngle() + event.getDeltaY());
-                    rotatation.setPivotX((getPoints().get(0)+getPoints().get(2)+getPoints().get(4))/3);
-                    rotatation.setPivotY((getPoints().get(1)+getPoints().get(3)+getPoints().get(5))/3);
-                    getTransforms().add(rotatation);*/
                     setRotate(getRotate()+event.getDeltaY());
                 }else{                    
                     if(event.getDeltaY() > 0){
@@ -141,51 +156,5 @@ public class Triangle extends Polygon{
                 }
             }
         });
-
-        /*setOnMouseReleased(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                try{
-                if(event.getButton() == MouseButton.PRIMARY){
-                    if(mousePos.getText()=="Mouse out of canvas"){
-                        try{                     
-                        File file = new File("Shape"+number.getText()+".txt");
-                        if(file.createNewFile()){
-                            FileWriter myWriter = new FileWriter("Shape"+number.getText()+".txt");
-                            myWriter.write("t\n"+getFill()+"\n"+getPoints().get(0)+"\n"+getPoints().get(1)+"\n"+getPoints().get(2)+"\n"+getPoints().get(3)+"\n"+getPoints().get(4)+"\n"+getPoints().get(5)+"\n");                            myWriter.close();
-                            System.out.println("File created: " + file.getName());
-                            canvas.getChildren().remove(this);
-                            setVisible(false);    
-                        }else{
-                        while (!(file.createNewFile())) {
-                            file = new File("Shape"+number.getText()+".txt");
-                            System.out.println("File already exists."+ number.getText());
-                            number.setText(String.valueOf(Integer.parseInt(number.getText())+1));
-                        } 
-                        FileWriter myWriter = new FileWriter("Shape"+(Integer.parseInt(number.getText())-1)+".txt");
-                        number.setText(String.valueOf(Integer.parseInt(number.getText())+1));
-                        myWriter.write("t\n"+getFill()+"\n"+getPoints().get(0)+"\n"+getPoints().get(1)+"\n"+getPoints().get(2)+"\n"+getPoints().get(3)+"\n"+getPoints().get(4)+"\n"+getPoints().get(5)+"\n");                        myWriter.close();
-                        System.out.println("File created: " + file.getName());
-                        canvas.getChildren().remove(this);
-                        setVisible(false);    
-                    }
-                    }catch(IOException e){
-                        System.out.println("An error occurred.");
-                        e.printStackTrace();
-                    }                             
-                        canvas.getChildren().remove(this);
-                        setVisible(false);
-                    }
-                                                       
-            }
-        }catch(Exception e){
-            System.out.println("An error occurred.");
-            e.printStackTrace();
-        }
-            }
-        });*/
-    }
-    public Rotate pivot(){
-        return rotatation;
-    }
+    }   
 }

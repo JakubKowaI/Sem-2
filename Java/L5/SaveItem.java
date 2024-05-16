@@ -56,12 +56,27 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.control.*;
-
+/**
+ * Class SaveItem is a class that saves the items on the canvas to a file
+ * @param scene is a Scene object that is used to get the canvas
+ */
 public class SaveItem extends MenuItem {
+    /**
+     * Constructor of the SaveItem class
+     * @param scene is a Scene object that is used to get the canvas
+     */
     SaveItem(Scene scene){
         super("Save Items");
         Pane canvas = (Pane) scene.lookup("#canvas");
+        /**
+         * Method that saves the items on the canvas to a file
+         */
         setOnAction(new EventHandler<ActionEvent>(){
+            /**
+             * Method that saves the items on the canvas to a file
+             * @param event
+             * @throws IOException
+             */
             @Override
             public void handle(ActionEvent event){                               
                 try {

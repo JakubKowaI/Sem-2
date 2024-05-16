@@ -56,8 +56,14 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.control.*;
-
+/**
+ * Class Circles is a class that creates a circle object
+ */
 public class Circles extends Circle{
+    /**
+     * Constructor of the Circles class
+     * @param scene
+     */
     Circles(Scene scene){
         super(50);
         Pane canvas = (Pane) scene.lookup("#canvas");
@@ -65,17 +71,16 @@ public class Circles extends Circle{
         Label shift = (Label) scene.getRoot().lookup("#shift");
         Label number = (Label) scene.getRoot().lookup("#number1");
         ColorPicker colorPicker = (ColorPicker) scene.lookup("#colorPicker");
-                        
-        Scale scalePos = new Scale();
-        scalePos.setX(1.1);
-        scalePos.setY(1.1);
-        Scale scaleNeg = new Scale();
-        scaleNeg.setX(0.9);
-        scaleNeg.setY(0.9);
-        Rotate rotatation = new Rotate();
-
+        /**
+         * setOnMouseClicked is a method that sets the action of the right mouse button click in order to change the color of the shape
+         */
         setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
+            /**
+             * handle is a method that sets the action of the right mouse button click in order to change the color of the shape
+             * @param event
+             * @throws Exception
+             */
             public void handle(MouseEvent event) {
                 try{
                 if(event.getButton() == MouseButton.SECONDARY){                    
@@ -91,9 +96,16 @@ public class Circles extends Circle{
                 }
             }
         });
-        
+        /**
+         * setOnMouseDragged is a method that sets the action of the mouse drag in order to move the shape
+         */
         setOnMouseDragged(new EventHandler<MouseEvent>() {
             @Override
+            /**
+             * handle is a method that sets the action of the mouse drag in order to move the shape
+             * @param event
+             * @throws Exception
+             */
             public void handle(MouseEvent event) {
                 try{
                     if(event.getSceneX()<=canvas.getWidth() && event.getSceneY()<=canvas.getHeight()){
@@ -110,9 +122,16 @@ public class Circles extends Circle{
                 }
             }
         });
-
+        /**
+         * setOnScroll is a method that sets the action of the mouse scroll in order to change the radius of the shape
+         */
         setOnScroll(new EventHandler<ScrollEvent>() {
             @Override
+            /**
+             * handle is a method that sets the action of the mouse scroll in order to change the radius of the shape
+             * @param event
+             * @throws Exception
+             */
             public void handle(ScrollEvent event) {
                 try{
                 if(shift.getText().equals("true")){
@@ -131,42 +150,5 @@ public class Circles extends Circle{
             }
             }
         });
-        
-        /*setOnMouseReleased(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                if(event.getButton() == MouseButton.PRIMARY){
-                    if(mousePos.getText()=="Mouse out of canvas"){   
-                        try{                     
-                            File file = new File("Shape"+number.getText()+".txt");
-                            if(file.createNewFile()){
-                                FileWriter myWriter = new FileWriter("Shape"+number.getText()+".txt");
-                                myWriter.write("c\n"+getFill()+"\n"+getRadius());
-                                myWriter.close();
-                                System.out.println("File created: " + file.getName());
-                                canvas.getChildren().remove(this);
-                            setVisible(false);    
-                            }else{
-                            while (!(file.createNewFile())) {
-                                file = new File("Shape"+number.getText()+".txt");
-                                System.out.println("File already exists."+ number.getText());
-                                number.setText(String.valueOf(Integer.parseInt(number.getText())+1));
-                            } 
-                            FileWriter myWriter = new FileWriter("Shape"+(Integer.parseInt(number.getText())-1)+".txt");
-                            number.setText(String.valueOf(Integer.parseInt(number.getText())+1));
-                            myWriter.write("r\n"+getFill()+"\n"+getRadius());
-                            myWriter.close();
-                            System.out.println("File created: " + file.getName());
-                            canvas.getChildren().remove(this);
-                            setVisible(false);    
-                        }
-                        }catch(IOException e){
-                            System.out.println("An error occurred.");
-                            e.printStackTrace();
-                        }                                                  
-                }                 
-        }
-    }
-        }); */       
     }
 }
