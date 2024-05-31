@@ -5,6 +5,7 @@ import javafx.scene.control.ColorPicker;
 import javafx.event.EventHandler;
 import javafx.scene.shape.Polygon;
 import javafx.scene.input.ScrollEvent;
+import javafx.scene.control.ColorPicker;
 import javafx.scene.input.*;
 /**
  * Class Triangle is a class that creates a triangle object

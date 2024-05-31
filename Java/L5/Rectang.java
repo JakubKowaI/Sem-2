@@ -8,6 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.*;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
+import javafx.scene.control.ColorPicker;
 import javafx.scene.input.*;
 /**
  * Class Rectang is a class that creates a rectangle object
@@ -67,9 +68,11 @@ public class Rectang extends Rectangle{
                     }else{
                         mousePos.setText("Mouse out of canvas");
                     }
-
+                    double angle = getRotate();
+                    setRotate(0);
                 setX(getWidth()/-2+event.getX());
                 setY(getHeight()/-2+event.getY());
+                setRotate(angle);
                 }catch(Exception e){
                     System.out.println("An error occurred.");
                     e.printStackTrace();

@@ -30,6 +30,5 @@ public class Guide extends MenuItem{
                 dialog.showAndWait();
             }
         });
-    }
-    
+    }    
 }

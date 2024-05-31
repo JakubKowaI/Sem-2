@@ -1,0 +1,5 @@
+-p
+/Users/kuba/Documents/Projects/javafx-sdk-21.0.3/lib
+--add-modules
+javafx.controls
+L6Z1.java
