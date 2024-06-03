@@ -25,11 +25,23 @@ public class L6Z1 extends Application{
         
         GridPane area = new GridPane(); 
         Scene scene = new Scene(area, m*50, n*50, Color.WHITESMOKE); 
+        int t=0;
         for (int i = 0; i < m; i++) {
             for(int j = 0; j < n; j++) {
-                Square square = new Square(k,p,rand,i,j,area);
+                Square square = new Square(k,p,rand,i,j,area,m,n);
+                square.setId("Square"+t);
+                t++;
                 area.add(square, i, j);
             }
+        }
+        try{
+        for(int i=0;area.getChildren().get(i)!=null;i++){
+            Square temp = (Square)area.getChildren().get(i);
+            Thread thread = temp.thread;
+            thread.start();
+        }
+        }catch(Exception e){
+            //System.out.println("Error with threads");
         }
         stage.setScene(scene);
         stage.show();
@@ -37,12 +49,12 @@ public class L6Z1 extends Application{
         stage.setOnCloseRequest(new EventHandler<WindowEvent>() 
   {
       public void handle(WindowEvent e){
-          System.out.println("test");  
+          System.out.println("end");  
           try {
                System.exit(0);
           } 
           catch (Exception e1) {
-               e1.printStackTrace();
+               System.out.println(e1.getMessage());
           }
       }
    });
