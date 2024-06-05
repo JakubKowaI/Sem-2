@@ -42,60 +42,43 @@ class myThread extends Thread{
 
     public void run(){
         int i=0;
-        try{
-            
+        try{            
         for(;square.area.getChildren().get(i)!=null;i++){
             Square temp = (Square)square.area.getChildren().get(i);
             try{
             if(temp.x == square.x-1 && temp.y == square.y){
                 left = temp;
-                //System.out.println(square.getId()+"left hit");
             }else if(temp.x == square.x+1 && temp.y == square.y){
                 right = temp;
-                //System.out.println("right hit");
             }else if(temp.x == square.x && temp.y == square.y-1){
                 down = temp;
-                //System.out.println("down hit");
             }else if(temp.x == square.x && temp.y == square.y+1){
                 up = temp;
-                //System.out.println("up hit");
             }
             if(square.x == 0&&left==null){
-                //System.out.println("1 x: "+temp.x+" y: "+temp.y+ " "+square.getId());
                 if(temp.x == m-1&&temp.y == square.y){
                     left = temp;
-                    //System.out.println("left side hit");
                 }
             }
             if(square.x == m-1&&right==null){
-                //System.out.println("2 x: "+temp.x+" y: "+temp.y+ " x: "+square.x +" y: "+square.y+" "+square.getId());
 
                 if(temp.x == 0&&temp.y == square.y){
                     right = temp;
-                    //System.out.println("right side hit");
                 }
             }
             if(square.y == 0&&down==null){
-                //System.out.println("3 x: "+temp.x+" y: "+temp.y+ " "+square.getId());
                 if(temp.x == square.x&&temp.y == n-1){
                     down = temp;
-                    //System.out.println("down side hit");
                 }
             }
             if(square.y == n-1&&up==null){
-                //System.out.println("4 x: "+temp.x+" y: "+temp.y+ " "+square.getId());
                 if(temp.x == square.x&&temp.y == 0){
                     up = temp;
-                    //System.out.println("up side hit");
                 }
             }
             }catch(Exception e){
                 System.out.println("Error with searching neighbors");
             }
-            /*if(left!=null&&right!=null&&up!=null&&down!=null){
-                System.out.println("All neighbors found "+ square.getId());
-                break;
-            }*/            
         }
         }catch(Exception e){
             System.out.println(e.getMessage()+ " i: "+i+" " + square.getId());
@@ -103,41 +86,6 @@ class myThread extends Thread{
         while(true){
             System.out.println(square.getId()+" start");
             try{
-                if((rand.nextDouble()%1.0) < square.p){
-                    square.setFill(Color.color(rand.nextDouble(), rand.nextDouble(), rand.nextDouble()));
-                }else{
-                    try{
-                        myThread threadLeft = left.thread;
-                        myThread threadRight = right.thread;
-                        myThread threadUp = up.thread;
-                        myThread threadDown = down.thread;
-                        int t=1;
-                        if(threadLeft.exit==false){
-                            left.thread.join();
-                            //color = color.add(left.getFill());
-                            if(t!=1)t++;
-                        }
-                        if(threadRight.exit==false){
-                            right.thread.join();
-                            //color = color.add(right.getFill());
-                            if(t!=1)t++;
-                        }
-                        if(threadUp.exit==false){
-                            up.thread.join();
-                            //color = color.add(up.getFill());
-                            if(t!=1)t++;
-                        }
-                        if(threadDown.exit==false){
-                            down.thread.join();
-                            //color = color.add(down.getFill());
-                            if(t!=1)t++;
-                        }
-                        //color = color/(t+1);
-                        //square.setFill(color);
-                    }catch(Exception e){
-                        System.out.println(e.getMessage());
-                    }
-                }
                 try{
                     synchronized(this){
                         while(exit)
@@ -146,6 +94,58 @@ class myThread extends Thread{
                     }catch(Exception e){
                         System.out.println("Error with wait");
                     }
+                if((rand.nextDouble()%1.0) <= square.p){
+                    square.setFill(Color.color(rand.nextDouble(), rand.nextDouble(), rand.nextDouble()));
+                }else{
+                    try{
+                        synchronized(square.area){
+                        myThread threadLeft = left.thread;
+                        myThread threadRight = right.thread;
+                        myThread threadUp = up.thread;
+                        myThread threadDown = down.thread;
+
+                        Double r=0.0;
+                        Double g=0.0;
+                        Double b=0.0;
+                        int t=1;
+                        if(threadLeft.exit==false){
+                            Color leftColor = (Color) left.getFill();
+                            r+=leftColor.getRed();
+                            g+=leftColor.getGreen();
+                            b+=leftColor.getBlue();
+                            if(t<=4)t++;
+                        }
+                        if(threadRight.exit==false){
+                            Color rightColor = (Color) right.getFill();
+                            r+=rightColor.getRed();
+                            g+=rightColor.getGreen();
+                            b+=rightColor.getBlue();
+                            if(t<=4)t++;
+                        }
+                        if(threadUp.exit==false){
+                            Color upColor = (Color) up.getFill();
+                            r+=upColor.getRed();
+                            g+=upColor.getGreen();
+                            b+=upColor.getBlue();
+                            if(t<=4)t++;
+                        }
+                        if(threadDown.exit==false){
+                            Color downColor = (Color) down.getFill();
+                            r+=downColor.getRed();
+                            g+=downColor.getGreen();
+                            b+=downColor.getBlue();
+                            if(t<=4)t++;
+                        }
+                        r=r/t;
+                        g=g/t;
+                        b=b/t;
+                        square.setFill(Color.color(r,g,b));
+                    }
+                    }catch(Exception e){
+                        System.out.println(e.getMessage());
+                    }
+                }
+                
                 
                 sleep(rand.nextInt(square.k)+(square.k/2));
 
@@ -182,7 +182,6 @@ public class Square extends Rectangle{
         setFill(Color.color(rand.nextDouble(), rand.nextDouble(), rand.nextDouble()));
 
         
-        //thread.start();
     }
 
     
