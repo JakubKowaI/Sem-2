@@ -2,7 +2,6 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.paint.Color;
 import javafx.scene.layout.GridPane;
 import java.util.Random;
-
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 
@@ -179,11 +178,6 @@ public class Square extends Rectangle{
         this.m=m;
         this.n=n;
         thread = new myThread(this);
-        setFill(Color.color(rand.nextDouble(), rand.nextDouble(), rand.nextDouble()));
-
-        
-    }
-
-    
-    
+        setFill(Color.color(rand.nextDouble(), rand.nextDouble(), rand.nextDouble()));        
+    }    
 }

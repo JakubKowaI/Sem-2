@@ -11,8 +11,6 @@ import javafx.event.EventHandler;
 import javafx.stage.WindowEvent;
 import java.util.Random;
 
-        
-
 public class L6Z1 extends Application{
         static int m=10;
         static int n=10;
@@ -20,9 +18,7 @@ public class L6Z1 extends Application{
         static Double p=0.5;
         Random rand = new Random();
     @Override
-    public void start(Stage stage) {
-        
-        
+    public void start(Stage stage) {        
         GridPane area = new GridPane(); 
         Scene scene = new Scene(area, m*50, n*50, Color.WHITESMOKE); 
         int t=0;
@@ -41,7 +37,7 @@ public class L6Z1 extends Application{
             thread.start();
         }
         }catch(Exception e){
-            //System.out.println("Error with threads");
+            System.out.println("Error with threads");
         }
         stage.setScene(scene);
         stage.show();
