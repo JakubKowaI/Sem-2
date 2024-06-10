@@ -4,7 +4,9 @@ import javafx.scene.layout.GridPane;
 import java.util.Random;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
-
+/**
+ * Class that creates a thread in a square
+ */
 class myThread extends Thread{
     Square square;
     Square left;
@@ -15,13 +17,19 @@ class myThread extends Thread{
     Random rand;
     int m;
     int n;
-
+    /**
+     * Constructor that creates a thread in a square
+     * @param squar
+     */
     public myThread(Square squar){
         this.square = squar;
         this.rand = squar.rand;
         this.m = squar.m;
         this.n = squar.n;
         try{
+            /**
+             * Method that handles the mouse event stopping the thread
+             */
         square.setOnMouseClicked(new EventHandler<MouseEvent>(){
             @Override
             public void handle(MouseEvent event){                                   
@@ -31,16 +39,23 @@ class myThread extends Thread{
             System.out.println("Errors with mouse event");
         }
     }
-
+    /**
+     * Method that stops the thread
+     */
     public synchronized void event(){
         exit=!exit;
                 if(!exit)
                 notify();
                 System.out.println(exit);
     }
-
+    /**
+     * Method that runs the thread
+     */
     public void run(){
         int i=0;
+        /**
+         * Method that searches for the neighbors of the square
+         */
         try{            
         for(;square.area.getChildren().get(i)!=null;i++){
             Square temp = (Square)square.area.getChildren().get(i);
@@ -82,9 +97,15 @@ class myThread extends Thread{
         }catch(Exception e){
             System.out.println(e.getMessage()+ " i: "+i+" " + square.getId());
         }
+        /**
+         * Method that changes the color of the square
+         */
         while(true){
             System.out.println(square.getId()+" start");
             try{
+                /**
+                 * Method that stops the thread
+                 */
                 try{
                     synchronized(this){
                         while(exit)
@@ -155,7 +176,9 @@ class myThread extends Thread{
         }
     }
 }
-
+/**
+ * Class that creates a square with a thread and extends a rectangle 
+ */
 public class Square extends Rectangle{
     myThread thread;
     int k;
@@ -166,7 +189,17 @@ public class Square extends Rectangle{
     GridPane area;
     int m;
     int n;
-
+    /**
+     * Constructor that creates a square with a thread
+     * @param k
+     * @param p
+     * @param rand
+     * @param x
+     * @param y
+     * @param area
+     * @param m
+     * @param n
+     */
     public Square(int k, Double p,Random rand,int x, int y, GridPane area,int m, int n){
         super(50,50);
         this.k = k;

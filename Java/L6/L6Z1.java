@@ -10,15 +10,25 @@ import javafx.scene.control.*;
 import javafx.event.EventHandler;
 import javafx.stage.WindowEvent;
 import java.util.Random;
-
+/**
+ * Main class of the program
+ * @param m number of rows
+ * @param n number of columns
+ * @param k time of waiting
+ * @param p probability of changing color
+ */
 public class L6Z1 extends Application{
         static int m=10;
         static int n=10;
         static int k=10;
         static Double p=0.5;
         Random rand = new Random();
+        /**
+         * Method that creates the grid of squares and starts the threads
+         * @param stage
+         */
     @Override
-    public void start(Stage stage) {        
+    public void start(Stage stage) {    
         GridPane area = new GridPane(); 
         Scene scene = new Scene(area, m*50, n*50, Color.WHITESMOKE); 
         int t=0;
@@ -41,7 +51,9 @@ public class L6Z1 extends Application{
         }
         stage.setScene(scene);
         stage.show();
-
+        /**
+         * Method that closes the program
+         */
         stage.setOnCloseRequest(new EventHandler<WindowEvent>() 
   {
       public void handle(WindowEvent e){
@@ -55,7 +67,10 @@ public class L6Z1 extends Application{
       }
    });
     }
-    
+    /**
+     * Main method that starts the program
+     * @param args
+     */
     public static void main(String[] args) { 
         try{
             m=Integer.parseInt(args[0]);
