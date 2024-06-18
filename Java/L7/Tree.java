@@ -14,7 +14,6 @@ import javafx.scene.paint.Color;
 import java.lang.reflect.Type;
 import javafx.scene.shape.Line;
 
-// Klasa elemenu drzewa
 class element<Typ extends Comparable<Typ>> {
     Typ key;
     element<Typ> left;
@@ -27,8 +26,6 @@ class element<Typ extends Comparable<Typ>> {
     }
   }
   
-  // Klasa do obslugi drzewa. Typ generyczny T musi implementowac Comparable,
-  // zeby mozna bylo porownac elementy do wstawienia do drzewa.
   public class Tree<Typ extends Comparable<Typ>> {
     public element<Typ> root;
     public Tree() { root = null; }
@@ -93,26 +90,42 @@ class element<Typ extends Comparable<Typ>> {
       else {
         if( temp.left==null ) return temp.right;
         if( temp.right==null ) return temp.left;
-        temp.right = treeDelete(temp.key, temp.right);
+        if(findMin(temp).right==null){
+            temp.key = findMin(temp).key;
+            temp.left = treeDelete(temp.key, temp.left);
+        }
+        else{
+            temp.key = findMin(temp.right).key;
+            temp.right = treeDelete(temp.key, temp.right);
+        }
       }
       return temp;
+    }
+    element<Typ> findMin(element<Typ> temp) {
+      if( temp.left==null ) return temp;
+      return findMin(temp.left);
     }
     void drawCircle(element<Typ> temp, double x, double y,Pane pane){
         if(temp!=null){
             Circle circle = new Circle(20);
             circle.setCenterX(x);
             circle.setCenterY(y);
+            int mid;
+            if(x>pane.getWidth()/2)
+                mid = (int)(pane.getWidth()-circle.getCenterX())/2;
+            else
+                mid = (int)(circle.getCenterX())/2;
             Text text = new Text(temp.key.toString());
             text.setX(x);
             text.setY(y);
             text.setFill(Color.WHITE);
             Line lineLeft = new Line();
             Line lineRight = new Line();
-            if(temp.left!=null){lineLeft = new Line(circle.getCenterX(), circle.getCenterY(), circle.getCenterX()-50, circle.getCenterY()-50);}
-            if(temp.right!=null){lineRight = new Line(circle.getCenterX(), circle.getCenterY(), circle.getCenterX()+50, circle.getCenterY()-50);}
+            if(temp.left!=null){lineLeft = new Line(circle.getCenterX(), circle.getCenterY(), circle.getCenterX()-mid, circle.getCenterY()+50);}
+            if(temp.right!=null){lineRight = new Line(circle.getCenterX(), circle.getCenterY(), circle.getCenterX()+mid, circle.getCenterY()+50);}
             pane.getChildren().addAll(circle,lineLeft,lineRight,text);
-            drawCircle(temp.left, circle.getCenterX()-50, circle.getCenterY()-50,pane);
-            drawCircle(temp.right, circle.getCenterX()+50, circle.getCenterY()-50,pane);
+            drawCircle(temp.left, circle.getCenterX()-mid, circle.getCenterY()+50,pane);
+            drawCircle(temp.right, circle.getCenterX()+mid, circle.getCenterY()+50,pane);
         }
     }
   }

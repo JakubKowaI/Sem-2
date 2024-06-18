@@ -107,6 +107,7 @@ public class L7Client extends Application{
         topBar.setAlignment(Pos.CENTER);
         ChoiceBox<String> choiceBox = new ChoiceBox<String>();
         choiceBox.getItems().addAll("Integer","Double","String");
+        choiceBox.setValue("Integer");
         topBar.getChildren().add(choiceBox);
         root.setTop(topBar);
         try {
@@ -176,17 +177,18 @@ public class L7Client extends Application{
                         Circle circle = new Circle(20);
                         Text text = new Text(listen.treeIntClient.root.key.toString());
                         circle.setCenterX(pane.getWidth()/2);
-                        circle.setCenterY(pane.getHeight()/2);
+                        circle.setCenterY(30);
+                        int middle = (int)circle.getCenterX()/2;
                         text.setX(pane.getWidth()/2);
-                        text.setY(pane.getHeight()/2);
+                        text.setY(30);
                         text.setFill(Color.WHITE);
                         Line lineLeft = new Line();
                         Line lineRight = new Line();
-                        if(listen.treeIntClient.root.left!=null)lineLeft = new Line(circle.getCenterX(), circle.getCenterY(), circle.getCenterX()-50, circle.getCenterY()-50);
-                        if(listen.treeIntClient.root.right!=null)lineRight = new Line(circle.getCenterX(), circle.getCenterY(), circle.getCenterX()+50, circle.getCenterY()-50);
+                        if(listen.treeIntClient.root.left!=null)lineLeft = new Line(circle.getCenterX(), circle.getCenterY(), circle.getCenterX()-middle, circle.getCenterY()+50);
+                        if(listen.treeIntClient.root.right!=null)lineRight = new Line(circle.getCenterX(), circle.getCenterY(), circle.getCenterX()+middle, circle.getCenterY()+50);
                         pane.getChildren().addAll(circle,lineLeft,lineRight,text);
-                        listen.treeIntClient.drawCircle(listen.treeIntClient.root.left, circle.getCenterX()-50, circle.getCenterY()-50,pane);
-                        listen.treeIntClient.drawCircle(listen.treeIntClient.root.right, circle.getCenterX()+50, circle.getCenterY()-50,pane);
+                        listen.treeIntClient.drawCircle(listen.treeIntClient.root.left, circle.getCenterX()-middle, circle.getCenterY()+50,pane);
+                        listen.treeIntClient.drawCircle(listen.treeIntClient.root.right, circle.getCenterX()+middle, circle.getCenterY()+50,pane);
                     }
                 }
                 if(choiceBox.getValue().equals("Double")){
@@ -194,17 +196,18 @@ public class L7Client extends Application{
                         Circle circle = new Circle(20);
                         Text text = new Text(listen.treeDoubleClient.root.key.toString());
                         circle.setCenterX(pane.getWidth()/2);
-                        circle.setCenterY(pane.getHeight()/2);
+                        circle.setCenterY(30);
+                        int middle = (int)circle.getCenterX()/2;
                         text.setX(pane.getWidth()/2);
-                        text.setY(pane.getHeight()/2);
+                        text.setY(30);
                         text.setFill(Color.WHITE);
                         Line lineLeft = new Line();
                         Line lineRight = new Line();
-                        if(listen.treeDoubleClient.root.left!=null)lineLeft = new Line(circle.getCenterX(), circle.getCenterY(), circle.getCenterX()-50, circle.getCenterY()-50);
-                        if(listen.treeDoubleClient.root.right!=null)lineRight = new Line(circle.getCenterX(), circle.getCenterY(), circle.getCenterX()+50, circle.getCenterY()-50);
+                        if(listen.treeDoubleClient.root.left!=null)lineLeft = new Line(circle.getCenterX(), circle.getCenterY(), circle.getCenterX()-middle, circle.getCenterY()+50);
+                        if(listen.treeDoubleClient.root.right!=null)lineRight = new Line(circle.getCenterX(), circle.getCenterY(), circle.getCenterX()+middle, circle.getCenterY()+50);
                         pane.getChildren().addAll(circle,lineLeft,lineRight,text);
-                        listen.treeDoubleClient.drawCircle(listen.treeDoubleClient.root.left, circle.getCenterX()-50, circle.getCenterY()-50,pane);
-                        listen.treeDoubleClient.drawCircle(listen.treeDoubleClient.root.right, circle.getCenterX()+50, circle.getCenterY()-50,pane);
+                        listen.treeDoubleClient.drawCircle(listen.treeDoubleClient.root.left, circle.getCenterX()-middle, circle.getCenterY()+50,pane);
+                        listen.treeDoubleClient.drawCircle(listen.treeDoubleClient.root.right, circle.getCenterX()+middle, circle.getCenterY()+50,pane);
                     }
                 }
                 if(choiceBox.getValue().equals("String")){
@@ -212,17 +215,18 @@ public class L7Client extends Application{
                         Circle circle = new Circle(20);
                         Text text = new Text(listen.treeStringClient.root.key);
                         circle.setCenterX(pane.getWidth()/2);
-                        circle.setCenterY(pane.getHeight()/2);
+                        circle.setCenterY(30);
+                        int middle = (int)circle.getCenterX()/2;
                         text.setX(pane.getWidth()/2);
-                        text.setY(pane.getHeight()/2);
+                        text.setY(30);
                         text.setFill(Color.WHITE);
                         Line lineLeft = new Line();
                         Line lineRight = new Line();
-                        if(listen.treeStringClient.root.left!=null)lineLeft = new Line(circle.getCenterX(), circle.getCenterY(), circle.getCenterX()-50, circle.getCenterY()-50);
-                        if(listen.treeStringClient.root.right!=null)lineRight = new Line(circle.getCenterX(), circle.getCenterY(), circle.getCenterX()+50, circle.getCenterY()-50);
+                        if(listen.treeStringClient.root.left!=null)lineLeft = new Line(circle.getCenterX(), circle.getCenterY(), circle.getCenterX()-middle, circle.getCenterY()+50);
+                        if(listen.treeStringClient.root.right!=null)lineRight = new Line(circle.getCenterX(), circle.getCenterY(), circle.getCenterX()+middle, circle.getCenterY()+50);
                         pane.getChildren().addAll(circle,lineLeft,lineRight,text);
-                        listen.treeStringClient.drawCircle(listen.treeStringClient.root.left, circle.getCenterX()-50, circle.getCenterY()-50,pane);
-                        listen.treeStringClient.drawCircle(listen.treeStringClient.root.right, circle.getCenterX()+50, circle.getCenterY()-50,pane);
+                        listen.treeStringClient.drawCircle(listen.treeStringClient.root.left, circle.getCenterX()-middle, circle.getCenterY()+50,pane);
+                        listen.treeStringClient.drawCircle(listen.treeStringClient.root.right, circle.getCenterX()+middle, circle.getCenterY()+50,pane);
                     }
                 }
                     
