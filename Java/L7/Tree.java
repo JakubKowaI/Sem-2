@@ -48,6 +48,7 @@ class element<Typ extends Comparable<Typ>> {
         return treeSearch(key, temp.right);
     }
     public void draw(PrintWriter outing) {
+      if(root==null) return;
         String type = root.key.getClass().getName();
         if(type == "java.lang.Integer") {
             outing.println("start Integer");
@@ -88,6 +89,7 @@ class element<Typ extends Comparable<Typ>> {
       else if( key.compareTo(temp.key)>0)
         temp.right = treeDelete(key, temp.right);
       else {
+        if(temp.left==null&&temp.right==null)return null;
         if( temp.left==null ) return temp.right;
         if( temp.right==null ) return temp.left;
         if(findMin(temp).right==null){

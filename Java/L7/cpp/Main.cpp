@@ -40,18 +40,7 @@ class Tree{
     root = ins(elem, root); 
     }
   TreeElem<Typ>* ins(Typ elem, TreeElem<Typ>* w) {
-    if( w==NULL ) return new TreeElem<Typ>(elem);
-    if(is_same<Typ, string>::value){
-    try{
-    if( elem.compare(w->elem)<0) 
-      w->left = ins(elem, w->left);
-    else if( elem.compare(w->elem)>0)
-      w->right = ins(elem, w->right);
-    return w;
-    }catch(string e){
-        cout<<e<<endl;
-    }
-    }else{
+    if( w==NULL ) return new TreeElem<Typ>(elem);    
     try{
 if(elem<w->elem)
     w->left = ins(elem, w->left);
@@ -61,7 +50,7 @@ return w;
     }catch(string e){
         cout<<e<<endl;
     }
-    }
+    
   }
   bool isElement(Typ elem) { return isElem(elem,root); }
   bool isElem(Typ elem, TreeElem<Typ>* w) {
@@ -111,13 +100,13 @@ return w;
   string toString() { return toS(root); }
   string toS(TreeElem<Typ>* w) { 
     if( w!=NULL ){
-        if(is_same<Typ, string>::value){
-            //cout<<"string"<<endl;
-            return "("+w->elem+":"+toS(w->left)+":"+toS(w->right)+")";
-        }else{
+        // if(is_same<Typ, string>::value){
+        //     //cout<<"string"<<endl;
+        //     return "("+w->elem+":"+toS(w->left)+":"+toS(w->right)+")";
+        // }else{
             //cout<<"int"<<endl;
             return "("+to_string(w->elem)+":"+toS(w->left)+":"+toS(w->right)+")";
-        }
+        
     }
     return "()";
   }
